@@ -28,7 +28,7 @@ function AnimatedNumber({ value }: { value: string }) {
         }
 
         let start = 0;
-        const duration = 1500;
+        const duration = 4000;
         const step = duration / 60;
         const increment = numericPart / (duration / step);
         let current = 0;
