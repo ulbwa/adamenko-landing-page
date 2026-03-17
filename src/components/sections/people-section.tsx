@@ -59,12 +59,12 @@ function RectorCard({ rector, index }: { rector: Rector; index: number }) {
                     aria-hidden="true"
                 />
             </div>
-            <p className="text-[var(--kgu-text)] font-semibold text-sm leading-tight mb-1 group-hover:text-[#c8a84b] transition-colors">
+            <p className="text-[var(--kgu-text)] font-semibold text-base leading-tight mb-1 group-hover:text-[#c8a84b] transition-colors">
                 {rector.name}
             </p>
             <p className="text-[#c8a84b] text-xs font-medium mb-1">{rector.period}</p>
             {rector.note && (
-                <p className="text-[var(--kgu-muted)] text-xs">{rector.note}</p>
+                <p className="text-[var(--kgu-muted)] text-sm">{rector.note}</p>
             )}
         </motion.div>
     );
@@ -74,7 +74,7 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
     return (
         <section
             id="people"
-            className="relative py-24 overflow-hidden"
+            className="relative py-32 overflow-hidden"
             aria-labelledby="people-heading"
         >
             {/* Background */}
@@ -88,18 +88,18 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <FadeIn>
-                    <div className="text-center mb-16">
-                        <span className="inline-block text-[#c8a84b] text-xs font-bold tracking-widest uppercase mb-4">
+                    <div className="text-center mb-20">
+                        <span className="inline-block text-[#c8a84b] text-sm font-bold tracking-widest uppercase mb-6">
                             Люди и имена
                         </span>
                         <h2
                             id="people-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--kgu-text)] mb-4"
+                            className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[var(--kgu-text)] mb-6"
                         >
                             Историю делают
                             <span className="gradient-text"> люди</span>
                         </h2>
-                        <p className="text-[var(--kgu-muted)] text-lg max-w-xl mx-auto">
+                        <p className="text-[var(--kgu-muted)] text-xl max-w-xl mx-auto">
                             Руководители, выдающиеся выпускники и основатели научных школ КГУ
                         </p>
                     </div>
@@ -121,7 +121,7 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
                 <FadeIn delay={0.2}>
                     <div className="mb-20">
                         <SectionDivider label="Знаменитые выпускники" />
-                        <p className="text-center text-[var(--kgu-muted)] text-sm mb-8 -mt-4">
+                        <p className="text-center text-[var(--kgu-muted)] text-base mb-10 -mt-4">
                             Нажмите на карточку, чтобы узнать больше
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

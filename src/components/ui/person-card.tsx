@@ -126,18 +126,18 @@ export function PersonCard({ person, index }: PersonCardProps) {
 
         {/* Text content */}
         <div className="p-5">
-          <h3 className="text-[var(--kgu-text)] font-bold text-base leading-snug mb-1 group-hover:text-[#c8a84b] transition-colors font-[family-name:var(--font-playfair)]">
+          <h3 className="text-[var(--kgu-text)] font-bold text-lg leading-snug mb-1 group-hover:text-[#c8a84b] transition-colors font-[family-name:var(--font-playfair)]">
             {person.name}
           </h3>
           <p className="text-[#c8a84b] text-xs font-semibold mb-2.5">
             {person.graduation}
           </p>
-          <p className="text-[var(--kgu-muted)] text-xs leading-relaxed line-clamp-2">
+          <p className="text-[var(--kgu-muted)] text-sm leading-relaxed line-clamp-2">
             {person.achievement}
           </p>
 
           {/* "More" indicator */}
-          <div className="mt-4 flex items-center gap-1.5 text-[#c8a84b] text-xs font-semibold">
+          <div className="mt-4 flex items-center gap-1.5 text-[#c8a84b] text-sm font-semibold">
             <span>Подробнее</span>
             <motion.span
               animate={{ x: [0, 4, 0] }}
@@ -225,13 +225,13 @@ export function PersonCard({ person, index }: PersonCardProps) {
                   </div>
                 )}
 
-                <h2 className="text-[var(--kgu-text)] font-bold text-xl font-[family-name:var(--font-playfair)] mb-0.5">
+                <h2 className="text-[var(--kgu-text)] font-bold text-2xl font-[family-name:var(--font-playfair)] mb-0.5">
                   {person.name}
                 </h2>
                 <p className="text-[#c8a84b] text-sm font-semibold mb-4">
                   {person.graduation}
                 </p>
-                <p className="text-[var(--kgu-muted)] text-sm leading-relaxed mb-5">
+                <p className="text-[var(--kgu-muted)] text-base leading-relaxed mb-5">
                   {person.bioExtended ?? person.achievement}
                 </p>
 

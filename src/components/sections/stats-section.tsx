@@ -56,7 +56,7 @@ export function StatsSection({ stats }: StatsSectionProps) {
     return (
         <section
             id="stats"
-            className="relative py-24 overflow-hidden"
+            className="relative py-32 overflow-hidden"
             aria-labelledby="stats-heading"
         >
             {/* Background */}
@@ -75,13 +75,13 @@ export function StatsSection({ stats }: StatsSectionProps) {
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
-                    <div className="text-center mb-16">
-                        <span className="inline-block text-[#c8a84b] text-xs font-bold tracking-widest uppercase mb-4">
+                    <div className="text-center mb-20">
+                        <span className="inline-block text-[#c8a84b] text-sm font-bold tracking-widest uppercase mb-6">
                             Цифры и факты
                         </span>
                         <h2
                             id="stats-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--kgu-text)]"
+                            className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[var(--kgu-text)]"
                         >
                             Университет
                             <span className="gradient-text"> в цифрах</span>
@@ -90,23 +90,23 @@ export function StatsSection({ stats }: StatsSectionProps) {
                 </FadeIn>
 
                 <StaggerContainer
-                    className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6"
+                    className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
                 >
                     {stats.map((stat) => (
                         <motion.div
                             key={stat.label}
                             variants={staggerItem}
-                            className="glass-card rounded-2xl p-6 sm:p-8 text-center hover:border-[rgba(200,168,75,0.4)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(200,168,75,0.1)] group"
+                            className="glass-card rounded-2xl p-8 sm:p-10 text-center hover:border-[rgba(200,168,75,0.4)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(200,168,75,0.1)] group"
                         >
-                            <div className="text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-playfair)] gradient-text mb-2 group-hover:scale-105 transition-transform duration-300 origin-center">
+                            <div className="text-5xl sm:text-6xl lg:text-7xl font-bold font-[family-name:var(--font-playfair)] gradient-text mb-3 group-hover:scale-105 transition-transform duration-300 origin-center">
                                 <AnimatedNumber value={stat.value} />
                             </div>
                             {stat.suffix && (
-                                <div className="text-[var(--kgu-muted)] text-xs uppercase tracking-wider mb-1">
+                                <div className="text-[var(--kgu-muted)] text-sm uppercase tracking-wider mb-1">
                                     {stat.suffix}
                                 </div>
                             )}
-                            <div className="text-[var(--kgu-text)] font-medium text-sm">{stat.label}</div>
+                            <div className="text-[var(--kgu-text)] font-medium text-base sm:text-lg">{stat.label}</div>
                         </motion.div>
                     ))}
                 </StaggerContainer>

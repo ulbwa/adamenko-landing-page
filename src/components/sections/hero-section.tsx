@@ -56,13 +56,13 @@ export function HeroSection({ content }: HeroSectionProps) {
             <ParticleCanvas />
 
             {/* Content */}
-            <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+            <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-40 text-center">
                 {/* Badge */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[rgba(200,168,75,0.3)] bg-[rgba(200,168,75,0.08)] text-[#c8a84b] text-xs font-semibold tracking-widest uppercase mb-8"
+                    className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[rgba(200,168,75,0.3)] bg-[rgba(200,168,75,0.08)] text-[#c8a84b] text-sm font-semibold tracking-widest uppercase mb-10"
                 >
                     <span className="w-1.5 h-1.5 rounded-full bg-[#c8a84b] animate-pulse" aria-hidden="true" />
                     С 1951 года · Зауралье
@@ -73,7 +73,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-                    className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[var(--kgu-text)] leading-[1.1] mb-6"
+                    className="font-[family-name:var(--font-playfair)] text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-[var(--kgu-text)] leading-[1.0] tracking-tight mb-8"
                 >
                     Курганский
                     <br />
@@ -87,7 +87,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.7 }}
-                    className="text-[var(--kgu-muted)] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-4"
+                    className="text-[var(--kgu-muted)] text-xl sm:text-2xl max-w-2xl mx-auto leading-relaxed mb-6"
                 >
                     {content.subtitle}
                 </motion.p>
@@ -97,7 +97,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.9 }}
-                    className="text-[var(--kgu-text-dim)] text-base sm:text-lg max-w-3xl mx-auto leading-relaxed mb-12"
+                    className="text-[var(--kgu-text-dim)] text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed mb-14"
                 >
                     {content.body}
                 </motion.p>
@@ -111,7 +111,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                 >
                     <a
                         href="#timeline"
-                        className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#c8a84b] to-[#a8882b] text-[#0a0e1a] font-bold text-sm rounded-xl hover:shadow-[0_0_30px_rgba(200,168,75,0.5)] transition-all duration-300 hover:scale-105 active:scale-95"
+                        className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-gradient-to-r from-[#c8a84b] to-[#a8882b] text-[#0a0e1a] font-bold text-base rounded-xl hover:shadow-[0_0_30px_rgba(200,168,75,0.5)] transition-all duration-300 hover:scale-105 active:scale-95"
                     >
                         Изучить историю
                         <svg
@@ -132,7 +132,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     </a>
                     <a
                         href="#cta"
-                        className="inline-flex items-center justify-center px-8 py-3.5 border border-[rgba(200,168,75,0.3)] text-[#c8a84b] font-semibold text-sm rounded-xl hover:bg-[rgba(200,168,75,0.08)] hover:border-[rgba(200,168,75,0.6)] transition-all duration-300"
+                        className="inline-flex items-center justify-center px-10 py-4 border border-[rgba(200,168,75,0.3)] text-[#c8a84b] font-semibold text-base rounded-xl hover:bg-[rgba(200,168,75,0.08)] hover:border-[rgba(200,168,75,0.6)] transition-all duration-300"
                     >
                         Поступить в КГУ
                     </a>

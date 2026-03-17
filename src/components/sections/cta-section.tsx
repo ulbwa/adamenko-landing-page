@@ -43,18 +43,18 @@ export function CtaSection({ title, subtitle, links }: CtaSectionProps) {
 
             <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <FadeIn>
-                    <span className="inline-block text-[#c8a84b] text-xs font-bold tracking-widest uppercase mb-6">
+                    <span className="inline-block text-[#c8a84b] text-sm font-bold tracking-widest uppercase mb-8">
                         Присоединяйся
                     </span>
 
                     <h2
                         id="cta-heading"
-                        className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[var(--kgu-text)] mb-6 leading-[1.1]"
+                        className="font-[family-name:var(--font-playfair)] text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-[var(--kgu-text)] mb-8 leading-[1.05]"
                     >
                         {title}
                     </h2>
 
-                    <p className="text-[var(--kgu-muted)] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-12">
+                    <p className="text-[var(--kgu-muted)] text-xl sm:text-2xl max-w-2xl mx-auto leading-relaxed mb-14">
                         {subtitle}
                     </p>
 
@@ -88,7 +88,7 @@ export function CtaSection({ title, subtitle, links }: CtaSectionProps) {
                                 { value: "6", label: "институтов" },
                             ].map((item) => (
                                 <div key={item.label} className="text-center">
-                                    <p className="gradient-text font-bold text-2xl sm:text-3xl font-[family-name:var(--font-playfair)]">
+                                    <p className="gradient-text font-bold text-3xl sm:text-4xl font-[family-name:var(--font-playfair)]">
                                         {item.value}
                                     </p>
                                     <p className="text-[var(--kgu-muted)] text-xs sm:text-sm mt-1">{item.label}</p>

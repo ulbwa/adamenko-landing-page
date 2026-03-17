@@ -52,25 +52,25 @@ export function StructureSection({ institutes }: StructureSectionProps) {
     return (
         <section
             id="structure"
-            className="relative py-24 overflow-hidden"
+            className="relative py-32 overflow-hidden"
             aria-labelledby="structure-heading"
         >
             <div className="absolute inset-0 bg-[var(--kgu-deep)]" aria-hidden="true" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
-                    <div className="text-center mb-16">
-                        <span className="inline-block text-[#c8a84b] text-xs font-bold tracking-widest uppercase mb-4">
+                    <div className="text-center mb-20">
+                        <span className="inline-block text-[#c8a84b] text-sm font-bold tracking-widest uppercase mb-6">
                             Структура университета
                         </span>
                         <h2
                             id="structure-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--kgu-text)] mb-4"
+                            className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[var(--kgu-text)] mb-6"
                         >
                             Институты
                             <span className="gradient-text"> сегодня</span>
                         </h2>
-                        <p className="text-[var(--kgu-muted)] text-lg max-w-xl mx-auto">
+                        <p className="text-[var(--kgu-muted)] text-xl max-w-xl mx-auto">
                             КГУ — многопрофильный вуз, объединяющий восемь специализированных институтов
                         </p>
                     </div>
@@ -99,10 +99,10 @@ export function StructureSection({ institutes }: StructureSectionProps) {
                                     ICONS[index % ICONS.length]
                                 )}
                             </div>
-                            <h3 className="text-[var(--kgu-text)] font-bold text-base mb-2 leading-snug group-hover:text-[#c8a84b] transition-colors">
+                            <h3 className="text-[var(--kgu-text)] font-bold text-lg mb-3 leading-snug group-hover:text-[#c8a84b] transition-colors">
                                 {institute.name}
                             </h3>
-                            <p className="text-[var(--kgu-muted)] text-sm leading-relaxed">{institute.description}</p>
+                            <p className="text-[var(--kgu-muted)] text-base leading-relaxed">{institute.description}</p>
                         </motion.div>
                     ))}
                 </StaggerContainer>

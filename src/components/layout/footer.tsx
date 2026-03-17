@@ -11,7 +11,7 @@ export function Footer() {
                             КГУ
                         </div>
                         <div>
-                            <p className="text-[var(--kgu-text)] font-semibold text-sm">
+                            <p className="text-[var(--kgu-text)] font-semibold text-base">
                                 Курганский государственный университет
                             </p>
                             <p className="text-[var(--kgu-muted)] text-xs">Основан в 1951 году</p>
