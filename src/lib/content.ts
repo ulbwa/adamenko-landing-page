@@ -1,15 +1,10 @@
-import fs from "fs";
-import path from "path";
 import type { LandingContent } from "@/types/content";
 
 export function getLandingContent(): LandingContent {
-    const filePath = path.join(process.cwd(), "landing-content.md");
-    const raw = fs.readFileSync(filePath, "utf-8");
-
-    return parseLandingContent(raw);
+    return parseLandingContent();
 }
 
-function parseLandingContent(raw: string): LandingContent {
+function parseLandingContent(): LandingContent {
     return {
         hero: {
             title: "Курганский государственный университет: 75 лет развития высшего образования в Зауралье",
@@ -333,5 +328,4 @@ function parseLandingContent(raw: string): LandingContent {
         ],
     };
 
-    void raw; // raw markdown is retained for future dynamic parsing
 }

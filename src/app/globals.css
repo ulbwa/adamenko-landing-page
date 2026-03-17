@@ -48,10 +48,22 @@ body {
   overflow-x: hidden;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--navy); }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--gold-light); }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-light);
+}
 
 ::selection {
   background: var(--gold-dim);
@@ -84,23 +96,46 @@ body {
   padding-top: 6rem;
   padding-bottom: 6rem;
 }
+
 @media (min-width: 768px) {
-  .section-padding { padding-top: 8rem; padding-bottom: 8rem; }
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px var(--gold-glow); }
-  50% { box-shadow: 0 0 40px var(--gold-glow), 0 0 60px rgba(212, 168, 69, 0.08); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--gold-glow);
+  }
+
+  50% {
+    box-shadow: 0 0 40px var(--gold-glow), 0 0 60px rgba(212, 168, 69, 0.08);
+  }
 }
 
 .grid-pattern {
@@ -114,6 +149,7 @@ body {
 [data-state="open"] > .accordion-chevron {
   transform: rotate(180deg);
 }
+
 .accordion-chevron {
   transition: transform 0.2s ease;
 }
