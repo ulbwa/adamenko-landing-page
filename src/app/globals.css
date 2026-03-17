@@ -41,6 +41,16 @@ html {
   scroll-behavior: smooth;
 }
 
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+@media (min-width: 640px) {
+  section[id] {
+    scroll-margin-top: 7rem;
+  }
+}
+
 body {
   background: var(--navy);
   color: var(--text-primary);
