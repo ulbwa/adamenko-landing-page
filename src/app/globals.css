@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0e1a;
+  --foreground: #e8eaf6;
+
+  /* КГУ цветовая палитра */
+  --kgu-navy: #0a0e1a;
+  --kgu-deep: #0d1528;
+  --kgu-blue: #1a2744;
+  --kgu-accent: #c8a84b;
+  --kgu-accent-light: #e4c97a;
+  --kgu-accent-glow: rgba(200, 168, 75, 0.3);
+  --kgu-text: #e8eaf6;
+  --kgu-muted: #8892b0;
+  --kgu-card: rgba(26, 39, 68, 0.6);
+  --kgu-border: rgba(200, 168, 75, 0.2);
+  --kgu-gradient-start: #0a0e1a;
+  --kgu-gradient-end: #0d1f3c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-playfair), var(--font-inter), serif;
+  --font-serif: var(--font-playfair), serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--kgu-navy);
+  color: var(--kgu-text);
+  font-family: var(--font-inter), 'Segoe UI', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--kgu-navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--kgu-accent);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--kgu-accent-light);
+}
+
+/* Selection */
+::selection {
+  background: var(--kgu-accent-glow);
+  color: var(--kgu-accent-light);
+}
+
+/* Smooth gradient overlays */
+.gradient-text {
+  background: linear-gradient(135deg, var(--kgu-accent-light), var(--kgu-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-card {
+  background: var(--kgu-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--kgu-border);
+}
+
+.glow-border {
+  box-shadow: 0 0 0 1px var(--kgu-border), 0 0 30px var(--kgu-accent-glow);
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--kgu-accent-glow);
+  }
+
+  50% {
+    box-shadow: 0 0 40px var(--kgu-accent-glow), 0 0 60px rgba(200, 168, 75, 0.1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
