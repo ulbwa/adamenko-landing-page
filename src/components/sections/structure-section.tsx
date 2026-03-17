@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { FadeIn, StaggerContainer, staggerItem } from "@/components/ui/motion";
+import { FloatingShapes } from "@/components/ui/floating-shapes";
 import type { InstituteItem } from "@/types/content";
+import type { MouseEvent } from "react";
 
 const ICONS = [
     // Gear/cog for Polytechnic
@@ -44,6 +46,66 @@ const ICONS = [
     ),
 ];
 
+interface TiltCardProps {
+    institute: InstituteItem;
+    index: number;
+}
+
+function TiltCard({ institute, index }: TiltCardProps) {
+    const mx = useMotionValue(0);
+    const my = useMotionValue(0);
+    const springCfg = { stiffness: 180, damping: 22 };
+    const rotateX = useSpring(useTransform(my, [-1, 1], [10, -10]), springCfg);
+    const rotateY = useSpring(useTransform(mx, [-1, 1], [-10, 10]), springCfg);
+    const glowX = useTransform(mx, [-1, 1], ["0%", "100%"]);
+    const glowY = useTransform(my, [-1, 1], ["0%", "100%"]);
+    const glowBg = useMotionTemplate`radial-gradient(circle at ${glowX} ${glowY}, rgba(200,168,75,0.12) 0%, transparent 60%)`;
+
+    function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        mx.set((e.clientX - rect.left - rect.width / 2) / (rect.width / 2));
+        my.set((e.clientY - rect.top - rect.height / 2) / (rect.height / 2));
+    }
+    function handleMouseLeave() { mx.set(0); my.set(0); }
+
+    return (
+        <div
+            style={{ perspective: "900px" }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="h-full"
+        >
+            <motion.div
+                variants={staggerItem}
+                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                className="glass-card rounded-2xl p-6 h-full flex flex-col hover:border-[rgba(200,168,75,0.4)] transition-all duration-300 hover:shadow-[0_16px_40px_rgba(200,168,75,0.18)] group cursor-default relative overflow-hidden"
+            >
+                {/* Inner moving glow */}
+                <motion.div
+                    className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: glowBg }}
+                    aria-hidden="true"
+                />
+                <div
+                    className="w-12 h-12 rounded-xl bg-gradient-to-br from-[rgba(200,168,75,0.2)] to-[rgba(200,168,75,0.05)] border border-[rgba(200,168,75,0.2)] flex items-center justify-center text-[#c8a84b] mb-4 group-hover:border-[rgba(200,168,75,0.5)] group-hover:shadow-[0_0_15px_rgba(200,168,75,0.25)] transition-all duration-300 overflow-hidden"
+                    aria-hidden="true"
+                >
+                    {institute.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={institute.image} alt="" className="w-10 h-10 object-contain" />
+                    ) : (
+                        ICONS[index % ICONS.length]
+                    )}
+                </div>
+                <h3 className="text-[var(--kgu-text)] font-bold text-lg mb-3 leading-snug group-hover:text-[#c8a84b] transition-colors relative z-10">
+                    {institute.name}
+                </h3>
+                <p className="text-[var(--kgu-muted)] text-base leading-relaxed relative z-10 mt-auto">{institute.description}</p>
+            </motion.div>
+        </div>
+    );
+}
+
 interface StructureSectionProps {
     institutes: InstituteItem[];
 }
@@ -56,6 +118,9 @@ export function StructureSection({ institutes }: StructureSectionProps) {
             aria-labelledby="structure-heading"
         >
             <div className="absolute inset-0 bg-[var(--kgu-deep)]" aria-hidden="true" />
+
+            {/* Floating geometric shapes */}
+            <FloatingShapes />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
@@ -71,39 +136,14 @@ export function StructureSection({ institutes }: StructureSectionProps) {
                             <span className="gradient-text"> сегодня</span>
                         </h2>
                         <p className="text-[var(--kgu-muted)] text-xl max-w-xl mx-auto">
-                            КГУ — многопрофильный вуз, объединяющий восемь специализированных институтов
+                            КГУ — многопрофильный вуз, объединяющий шесть институтов
                         </p>
                     </div>
                 </FadeIn>
 
-                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-fr items-stretch">
                     {institutes.map((institute, index) => (
-                        <motion.div
-                            key={institute.name}
-                            variants={staggerItem}
-                            whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                            className="glass-card rounded-2xl p-6 hover:border-[rgba(200,168,75,0.4)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(200,168,75,0.1)] group cursor-default"
-                        >
-                            <div
-                                className="w-12 h-12 rounded-xl bg-gradient-to-br from-[rgba(200,168,75,0.2)] to-[rgba(200,168,75,0.05)] border border-[rgba(200,168,75,0.2)] flex items-center justify-center text-[#c8a84b] mb-4 group-hover:border-[rgba(200,168,75,0.5)] group-hover:shadow-[0_0_15px_rgba(200,168,75,0.2)] transition-all duration-300 overflow-hidden"
-                                aria-hidden="true"
-                            >
-                                {institute.image ? (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img
-                                        src={institute.image}
-                                        alt=""
-                                        className="w-10 h-10 object-contain"
-                                    />
-                                ) : (
-                                    ICONS[index % ICONS.length]
-                                )}
-                            </div>
-                            <h3 className="text-[var(--kgu-text)] font-bold text-lg mb-3 leading-snug group-hover:text-[#c8a84b] transition-colors">
-                                {institute.name}
-                            </h3>
-                            <p className="text-[var(--kgu-muted)] text-base leading-relaxed">{institute.description}</p>
-                        </motion.div>
+                        <TiltCard key={institute.name} institute={institute} index={index} />
                     ))}
                 </StaggerContainer>
 

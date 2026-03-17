@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/ui/motion";
+import { FloatingShapes } from "@/components/ui/floating-shapes";
 import { PersonCard } from "@/components/ui/person-card";
 import type { Rector, AlumnusItem, ScientistItem } from "@/types/content";
 
@@ -84,6 +85,7 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
             <div className="absolute top-20 left-[-10%] w-80 h-80 rounded-full bg-[#c8a84b]/5 blur-3xl pointer-events-none" aria-hidden="true" />
             <div className="absolute bottom-20 right-[-10%] w-96 h-96 rounded-full bg-[#c8a84b]/4 blur-3xl pointer-events-none" aria-hidden="true" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[var(--kgu-blue)]/20 blur-[120px] pointer-events-none" aria-hidden="true" />
+            <FloatingShapes />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
@@ -94,12 +96,12 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
                         </span>
                         <h2
                             id="people-heading"
-                            className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[var(--kgu-text)] mb-6"
+                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[var(--kgu-text)] mb-5 sm:mb-6"
                         >
                             Историю делают
                             <span className="gradient-text"> люди</span>
                         </h2>
-                        <p className="text-[var(--kgu-muted)] text-xl max-w-xl mx-auto">
+                        <p className="text-[var(--kgu-muted)] text-base sm:text-xl max-w-xl mx-auto">
                             Руководители, выдающиеся выпускники и основатели научных школ КГУ
                         </p>
                     </div>

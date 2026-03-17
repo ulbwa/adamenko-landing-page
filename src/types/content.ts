@@ -50,6 +50,14 @@ export interface InstituteItem {
     image?: string;
 }
 
+    export interface TodayHighlight {
+        icon: string;
+        title: string;
+        description: string;
+        stat?: string;
+        statLabel?: string;
+    }
+
 export interface LandingContent {
     hero: HeroContent;
     historyContext: string;
@@ -60,6 +68,7 @@ export interface LandingContent {
     alumni: AlumnusItem[];
     scientists: ScientistItem[];
     institutes: InstituteItem[];
+        todayHighlights: TodayHighlight[];
     ctaTitle: string;
     ctaSubtitle: string;
     ctaLinks: { label: string; href: string }[];

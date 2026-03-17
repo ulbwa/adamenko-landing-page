@@ -175,7 +175,7 @@ export function PersonCard({ person, index }: PersonCardProps) {
               exit={{ scale: 0.9, opacity: 0, y: 18 }}
               transition={{ duration: 0.38, ease }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[var(--kgu-deep)] border border-[rgba(200,168,75,0.22)] rounded-3xl max-w-md w-full overflow-hidden shadow-[0_0_80px_rgba(200,168,75,0.18)]"
+              className="bg-[var(--kgu-deep)] border border-[rgba(200,168,75,0.22)] rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto overflow-x-hidden shadow-[0_0_80px_rgba(200,168,75,0.18)]"
             >
               {/* Modal photo */}
               <div className="relative h-64 bg-[var(--kgu-deep)] overflow-hidden">

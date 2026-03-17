@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/ui/motion";
+import { FloatingShapes } from "@/components/ui/floating-shapes";
 import type { LandingContent } from "@/types/content";
 
 interface CtaSectionProps {
@@ -33,13 +34,31 @@ export function CtaSection({ title, subtitle, links }: CtaSectionProps) {
                 aria-hidden="true"
             />
 
-            {/* Decorative circles */}
+            {/* Decorative circles — spinning */}
             <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-                <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-[rgba(200,168,75,0.05)]" />
-                <div className="absolute -left-10 top-1/2 -translate-y-1/2 w-60 h-60 rounded-full border border-[rgba(200,168,75,0.08)]" />
-                <div className="absolute -right-20 top-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-[rgba(200,168,75,0.05)]" />
-                <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-60 h-60 rounded-full border border-[rgba(200,168,75,0.08)]" />
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                    className="absolute -left-24 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full border border-[rgba(200,168,75,0.06)]"
+                />
+                <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                    className="absolute -left-12 top-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-[rgba(200,168,75,0.1)]"
+                />
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+                    className="absolute -right-24 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full border border-[rgba(200,168,75,0.06)]"
+                />
+                <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+                    className="absolute -right-12 top-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-[rgba(200,168,75,0.1)]"
+                />
             </div>
+
+            <FloatingShapes />
 
             <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <FadeIn>
@@ -81,17 +100,17 @@ export function CtaSection({ title, subtitle, links }: CtaSectionProps) {
 
                     {/* Stats strip */}
                     <div className="mt-16 pt-10 border-t border-[rgba(200,168,75,0.15)]">
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-3 gap-2 sm:gap-4">
                             {[
                                 { value: "70+", label: "лет образования" },
                                 { value: "8 000+", label: "студентов" },
-                                { value: "6", label: "институтов" },
+                                { value: "8", label: "институтов" },
                             ].map((item) => (
                                 <div key={item.label} className="text-center">
-                                    <p className="gradient-text font-bold text-3xl sm:text-4xl font-[family-name:var(--font-playfair)]">
+                                    <p className="gradient-text font-bold text-2xl sm:text-4xl font-[family-name:var(--font-playfair)]">
                                         {item.value}
                                     </p>
-                                    <p className="text-[var(--kgu-muted)] text-xs sm:text-sm mt-1">{item.label}</p>
+                                    <p className="text-[var(--kgu-muted)] text-[0.65rem] sm:text-sm mt-1 leading-tight">{item.label}</p>
                                 </div>
                             ))}
                         </div>

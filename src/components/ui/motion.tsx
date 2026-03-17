@@ -89,3 +89,36 @@ export const staggerItem = {
     },
 };
 
+export const staggerItemScale = {
+    hidden: { opacity: 0, y: 20, scale: 0.94 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.55, ease: smoothEase as Easing, type: "spring" as const, stiffness: 120, damping: 18 },
+    },
+};
+
+interface ScaleInProps {
+    children: ReactNode;
+    delay?: number;
+    className?: string;
+}
+
+export function ScaleIn({ children, delay = 0, className }: ScaleInProps) {
+    const ref = useRef<HTMLDivElement>(null);
+    const isInView = useInView(ref, { once: true, margin: "-60px" });
+
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, scale: 0.88, y: 20 }}
+            animate={isInView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.88, y: 20 }}
+            transition={{ duration: 0.65, delay, ease: smoothEase, type: "spring", stiffness: 140, damping: 20 }}
+            className={className}
+        >
+            {children}
+        </motion.div>
+    );
+}
+
