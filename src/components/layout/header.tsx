@@ -34,7 +34,7 @@ export function Header() {
             role="banner"
         >
             <nav
-                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"
                 aria-label="Главная навигация"
             >
                 {/* Logo */}
@@ -47,8 +47,12 @@ export function Header() {
                     <img
                         src="/images/logo.svg"
                         alt="КГУ логотип"
-                        className="h-9 w-auto logo-img group-hover:opacity-80 transition-opacity duration-300"
+                        className="h-12 w-auto logo-img group-hover:opacity-80 transition-opacity duration-300"
                     />
+                    <div className="hidden sm:block">
+                        <p className="text-[var(--kgu-text)] font-bold text-base leading-tight tracking-wide group-hover:text-[#c8a84b] transition-colors">КГУ</p>
+                        <p className="text-[var(--kgu-muted)] text-[11px] leading-tight tracking-wide hidden lg:block">Курганский гос. университет</p>
+                    </div>
                 </a>
 
                 {/* Desktop nav */}
