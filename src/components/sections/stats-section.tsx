@@ -16,9 +16,10 @@ function AnimatedNumber({ value }: { value: string }) {
     const [displayed, setDisplayed] = useState("0");
 
     // Extract numeric part for animation
-    const numericMatch = value.replace(/\s/g, "").match(/^(\d+)/);
+    const strippedValue = value.replace(/\s/g, "");
+    const numericMatch = strippedValue.match(/^(\d+)/);
     const numericPart = numericMatch ? parseInt(numericMatch[1], 10) : null;
-    const suffix = numericPart !== null ? value.replace(String(numericPart), "") : value;
+    const suffix = numericPart !== null ? strippedValue.replace(String(numericPart), "") : strippedValue;
 
     useEffect(() => {
         if (!isInView || numericPart === null) {

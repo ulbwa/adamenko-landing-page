@@ -62,7 +62,7 @@ function parseLandingContent(raw: string): LandingContent {
 
         stats: [
             { label: "Год основания", value: "1951" },
-            { label: "Студентов", value: "8 000+", suffix: "человек" },
+            { label: "Студентов", value: "10 000+", suffix: "человек" },
             { label: "Преподавателей", value: "500+", suffix: "специалистов" },
             { label: "Докторов наук", value: "60+", suffix: "учёных" },
             { label: "Кандидатов наук", value: "300", suffix: "специалистов" },
