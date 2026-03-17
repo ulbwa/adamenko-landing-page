@@ -25,6 +25,8 @@ export interface Rector {
     name: string;
     period: string;
     note?: string;
+    photo?: string;
+    bio?: string;
 }
 
 export interface AlumnusItem {
@@ -45,6 +47,7 @@ export interface ScientistItem {
 export interface InstituteItem {
     name: string;
     description: string;
+    image?: string;
 }
 
 export interface LandingContent {

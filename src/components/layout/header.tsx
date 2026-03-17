@@ -42,12 +42,13 @@ export function Header() {
                     className="flex items-center gap-3 group"
                     aria-label="КГУ — на главную"
                 >
-                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#c8a84b] to-[#8a6a20] flex items-center justify-center text-white font-bold text-sm shadow-lg group-hover:shadow-[0_0_20px_rgba(200,168,75,0.5)] transition-shadow duration-300">
-                        КГУ
-                    </div>
-                    <span className="hidden sm:block text-[#e8eaf6] font-semibold text-sm tracking-wide group-hover:text-[#c8a84b] transition-colors">
-                        Курганский ГУ
-                    </span>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src="/images/logo.svg"
+                        alt="КГУ логотип"
+                        className="h-9 w-auto group-hover:opacity-80 transition-opacity duration-300"
+                        style={{ filter: "brightness(0) invert(1)" }}
+                    />
                 </a>
 
                 {/* Desktop nav */}

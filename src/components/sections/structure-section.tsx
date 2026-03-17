@@ -71,7 +71,7 @@ export function StructureSection({ institutes }: StructureSectionProps) {
                             <span className="gradient-text"> сегодня</span>
                         </h2>
                         <p className="text-[#8892b0] text-lg max-w-xl mx-auto">
-                            КГУ — многопрофильный вуз, объединяющий шесть специализированных институтов
+                            КГУ — многопрофильный вуз, объединяющий восемь специализированных институтов
                         </p>
                     </div>
                 </FadeIn>
@@ -85,10 +85,19 @@ export function StructureSection({ institutes }: StructureSectionProps) {
                             className="glass-card rounded-2xl p-6 hover:border-[rgba(200,168,75,0.4)] transition-all duration-300 hover:shadow-[0_8px_30px_rgba(200,168,75,0.1)] group cursor-default"
                         >
                             <div
-                                className="w-12 h-12 rounded-xl bg-gradient-to-br from-[rgba(200,168,75,0.2)] to-[rgba(200,168,75,0.05)] border border-[rgba(200,168,75,0.2)] flex items-center justify-center text-[#c8a84b] mb-4 group-hover:border-[rgba(200,168,75,0.5)] group-hover:shadow-[0_0_15px_rgba(200,168,75,0.2)] transition-all duration-300"
+                                className="w-12 h-12 rounded-xl bg-gradient-to-br from-[rgba(200,168,75,0.2)] to-[rgba(200,168,75,0.05)] border border-[rgba(200,168,75,0.2)] flex items-center justify-center text-[#c8a84b] mb-4 group-hover:border-[rgba(200,168,75,0.5)] group-hover:shadow-[0_0_15px_rgba(200,168,75,0.2)] transition-all duration-300 overflow-hidden"
                                 aria-hidden="true"
                             >
-                                {ICONS[index % ICONS.length]}
+                                {institute.image ? (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                        src={institute.image}
+                                        alt=""
+                                        className="w-10 h-10 object-contain"
+                                    />
+                                ) : (
+                                    ICONS[index % ICONS.length]
+                                )}
                             </div>
                             <h3 className="text-[#e8eaf6] font-bold text-base mb-2 leading-snug group-hover:text-[#c8a84b] transition-colors">
                                 {institute.name}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { FadeIn } from "@/components/ui/motion";
 import { PersonCard } from "@/components/ui/person-card";
@@ -22,6 +23,7 @@ function SectionDivider({ label }: { label: string }) {
 }
 
 function RectorCard({ rector, index }: { rector: Rector; index: number }) {
+    const [imgError, setImgError] = useState(false);
     return (
         <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -33,12 +35,22 @@ function RectorCard({ rector, index }: { rector: Rector; index: number }) {
         >
             {/* Avatar */}
             <div className="relative w-16 h-16 mx-auto mb-3">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1a2744] to-[#0a1830] border-2 border-[rgba(200,168,75,0.3)] flex items-center justify-center group-hover:border-[rgba(200,168,75,0.6)] transition-colors">
-                    <span className="text-[#c8a84b] font-bold text-lg font-[family-name:var(--font-playfair)]" aria-hidden="true">
-                        {rector.name.split(" ")[0][0]}
-                        {rector.name.split(" ")[1]?.[0]}
-                    </span>
-                </div>
+                {rector.photo && !imgError ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                        src={rector.photo}
+                        alt={`Фото: ${rector.name}`}
+                        className="w-16 h-16 rounded-full object-cover object-top border-2 border-[rgba(200,168,75,0.3)] group-hover:border-[rgba(200,168,75,0.6)] transition-colors"
+                        onError={() => setImgError(true)}
+                    />
+                ) : (
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1a2744] to-[#0a1830] border-2 border-[rgba(200,168,75,0.3)] flex items-center justify-center group-hover:border-[rgba(200,168,75,0.6)] transition-colors">
+                        <span className="text-[#c8a84b] font-bold text-lg font-[family-name:var(--font-playfair)]" aria-hidden="true">
+                            {rector.name.split(" ")[0][0]}
+                            {rector.name.split(" ")[1]?.[0]}
+                        </span>
+                    </div>
+                )}
                 {/* Glow ring on hover */}
                 <motion.div
                     className="absolute inset-0 rounded-full border border-[rgba(200,168,75,0.4)]"
@@ -97,7 +109,7 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
                 <FadeIn delay={0.1}>
                     <div className="mb-20">
                         <SectionDivider label="Ректоры КГУ" />
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                             {rectors.map((rector, i) => (
                                 <RectorCard key={rector.name} rector={rector} index={i} />
                             ))}
