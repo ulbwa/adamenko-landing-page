@@ -1,0 +1,115 @@
+"use client";
+
+import { useRef, useEffect, useState } from "react";
+import { useInView } from "framer-motion";
+import { FadeIn, StaggerContainer, staggerItem } from "@/components/ui/motion";
+import { motion } from "framer-motion";
+import type { StatItem } from "@/types/content";
+
+interface StatsSectionProps {
+    stats: StatItem[];
+}
+
+function AnimatedNumber({ value }: { value: string }) {
+    const ref = useRef<HTMLSpanElement>(null);
+    const isInView = useInView(ref, { once: true });
+    const [displayed, setDisplayed] = useState("0");
+
+    // Extract numeric part for animation
+    const numericMatch = value.replace(/\s/g, "").match(/^(\d+)/);
+    const numericPart = numericMatch ? parseInt(numericMatch[1], 10) : null;
+    const suffix = numericPart !== null ? value.replace(String(numericPart), "") : value;
+
+    useEffect(() => {
+        if (!isInView || numericPart === null) {
+            setDisplayed(value);
+            return;
+        }
+
+        let start = 0;
+        const duration = 1500;
+        const step = duration / 60;
+        const increment = numericPart / (duration / step);
+        let current = 0;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= numericPart) {
+                current = numericPart;
+                clearInterval(timer);
+            }
+            // Format with spaces for thousands
+            const formatted = Math.round(current)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            setDisplayed(formatted + suffix);
+        }, step);
+
+        return () => clearInterval(timer);
+    }, [isInView, numericPart, suffix, value]);
+
+    return <span ref={ref}>{displayed}</span>;
+}
+
+export function StatsSection({ stats }: StatsSectionProps) {
+    return (
+        <section
+            id="stats"
+            className="relative py-24 overflow-hidden"
+            aria-labelledby="stats-heading"
+        >
+            {/* Background */}
+            <div
+                className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a] to-[#0d1528]"
+                aria-hidden="true"
+            />
+            <div
+                className="absolute inset-0"
+                style={{
+                    background:
+                        "radial-gradient(ellipse 80% 40% at 50% 50%, rgba(200,168,75,0.05) 0%, transparent 100%)",
+                }}
+                aria-hidden="true"
+            />
+
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <FadeIn>
+                    <div className="text-center mb-16">
+                        <span className="inline-block text-[#c8a84b] text-xs font-bold tracking-widest uppercase mb-4">
+                            Цифры и факты
+                        </span>
+                        <h2
+                            id="stats-heading"
+                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e8eaf6]"
+                        >
+                            Университет
+                            <span className="gradient-text"> в цифрах</span>
+                        </h2>
+                    </div>
+                </FadeIn>
+
+                <StaggerContainer
+                    className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6"
+                >
+                    {stats.map((stat) => (
+                        <motion.div
+                            key={stat.label}
+                            variants={staggerItem}
+                            className="glass-card rounded-2xl p-6 sm:p-8 text-center hover:border-[rgba(200,168,75,0.4)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(200,168,75,0.1)] group"
+                        >
+                            <div className="text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-playfair)] gradient-text mb-2 group-hover:scale-105 transition-transform duration-300 origin-center">
+                                <AnimatedNumber value={stat.value} />
+                            </div>
+                            {stat.suffix && (
+                                <div className="text-[#8892b0] text-xs uppercase tracking-wider mb-1">
+                                    {stat.suffix}
+                                </div>
+                            )}
+                            <div className="text-[#e8eaf6] font-medium text-sm">{stat.label}</div>
+                        </motion.div>
+                    ))}
+                </StaggerContainer>
+            </div>
+        </section>
+    );
+}
