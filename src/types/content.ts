@@ -31,6 +31,10 @@ export interface AlumnusItem {
     name: string;
     graduation: string;
     achievement: string;
+    photo?: string;
+    bioExtended?: string;
+    tags?: string[];
+    wikiUrl?: string;
 }
 
 export interface ScientistItem {

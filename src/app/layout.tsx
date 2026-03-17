@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { CursorFollower } from "@/components/ui/cursor-follower";
 import "./globals.css";
 
 const inter = Inter({
@@ -36,6 +37,7 @@ export default function RootLayout({
   return (
     <html lang="ru" className="scroll-smooth">
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+        <CursorFollower />
         {children}
       </body>
     </html>
