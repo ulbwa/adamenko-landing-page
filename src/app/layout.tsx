@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { CursorFollower } from "@/components/ui/cursor-follower";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,6 +29,8 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInitScript = `(function(){try{var s=localStorage.getItem('kgu-theme');var p=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';var t=s||p;if(t==='light'){document.documentElement.setAttribute('data-theme','light');var m=document.querySelector('meta[name="theme-color"]');if(m)m.content='#f4f7ff'}}catch(e){}})()`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,7 +38,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className="scroll-smooth">
+      <head>
+        <meta name="theme-color" content="#0a0e1a" />
+        {/* Prevent flash of wrong theme before React hydration */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+        <CursorFollower />
         {children}
       </body>
     </html>

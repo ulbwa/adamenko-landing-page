@@ -25,12 +25,18 @@ export interface Rector {
     name: string;
     period: string;
     note?: string;
+    photo?: string;
+    bio?: string;
 }
 
 export interface AlumnusItem {
     name: string;
     graduation: string;
     achievement: string;
+    photo?: string;
+    bioExtended?: string;
+    tags?: string[];
+    wikiUrl?: string;
 }
 
 export interface ScientistItem {
@@ -41,7 +47,16 @@ export interface ScientistItem {
 export interface InstituteItem {
     name: string;
     description: string;
+    image?: string;
 }
+
+    export interface TodayHighlight {
+        icon: string;
+        title: string;
+        description: string;
+        stat?: string;
+        statLabel?: string;
+    }
 
 export interface LandingContent {
     hero: HeroContent;
@@ -53,6 +68,7 @@ export interface LandingContent {
     alumni: AlumnusItem[];
     scientists: ScientistItem[];
     institutes: InstituteItem[];
+        todayHighlights: TodayHighlight[];
     ctaTitle: string;
     ctaSubtitle: string;
     ctaLinks: { label: string; href: string }[];

@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { useInView } from "framer-motion";
-import { FadeIn, StaggerContainer, staggerItem } from "@/components/ui/motion";
+import { FadeIn, ScaleIn, StaggerContainer, staggerItemScale } from "@/components/ui/motion";
 import { motion } from "framer-motion";
 import type { StatItem } from "@/types/content";
 
@@ -16,9 +16,10 @@ function AnimatedNumber({ value }: { value: string }) {
     const [displayed, setDisplayed] = useState("0");
 
     // Extract numeric part for animation
-    const numericMatch = value.replace(/\s/g, "").match(/^(\d+)/);
+    const strippedValue = value.replace(/\s/g, "");
+    const numericMatch = strippedValue.match(/^(\d+)/);
     const numericPart = numericMatch ? parseInt(numericMatch[1], 10) : null;
-    const suffix = numericPart !== null ? value.replace(String(numericPart), "") : value;
+    const suffix = numericPart !== null ? strippedValue.replace(String(numericPart), "") : strippedValue;
 
     useEffect(() => {
         if (!isInView || numericPart === null) {
@@ -26,26 +27,24 @@ function AnimatedNumber({ value }: { value: string }) {
             return;
         }
 
-        let start = 0;
-        const duration = 1500;
-        const step = duration / 60;
-        const increment = numericPart / (duration / step);
-        let current = 0;
+        const duration = 2400;
+        const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
+        let startTime: number | null = null;
+        let rafId: number;
 
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= numericPart) {
-                current = numericPart;
-                clearInterval(timer);
-            }
-            // Format with spaces for thousands
-            const formatted = Math.round(current)
+        const tick = (timestamp: number) => {
+            if (startTime === null) startTime = timestamp;
+            const t = Math.min((timestamp - startTime) / duration, 1);
+            const current = Math.round(easeOutQuart(t) * numericPart);
+            const formatted = current
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
             setDisplayed(formatted + suffix);
-        }, step);
+            if (t < 1) rafId = requestAnimationFrame(tick);
+        };
 
-        return () => clearInterval(timer);
+        rafId = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(rafId);
     }, [isInView, numericPart, suffix, value]);
 
     return <span ref={ref}>{displayed}</span>;
@@ -55,12 +54,12 @@ export function StatsSection({ stats }: StatsSectionProps) {
     return (
         <section
             id="stats"
-            className="relative py-24 overflow-hidden"
+            className="relative py-32 overflow-hidden"
             aria-labelledby="stats-heading"
         >
             {/* Background */}
             <div
-                className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a] to-[#0d1528]"
+                className="absolute inset-0 bg-gradient-to-b from-[var(--kgu-navy)] to-[var(--kgu-deep)]"
                 aria-hidden="true"
             />
             <div
@@ -73,39 +72,52 @@ export function StatsSection({ stats }: StatsSectionProps) {
             />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <FadeIn>
-                    <div className="text-center mb-16">
-                        <span className="inline-block text-[#c8a84b] text-xs font-bold tracking-widest uppercase mb-4">
+                <ScaleIn delay={0.1}>
+                    <div className="text-center mb-20">
+                        <span className="inline-block text-[#c8a84b] text-sm font-bold tracking-widest uppercase mb-6">
                             Цифры и факты
                         </span>
                         <h2
                             id="stats-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e8eaf6]"
+                            className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[var(--kgu-text)]"
                         >
                             Университет
                             <span className="gradient-text"> в цифрах</span>
                         </h2>
                     </div>
-                </FadeIn>
+                </ScaleIn>
 
                 <StaggerContainer
-                    className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6"
+                    className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
                 >
-                    {stats.map((stat) => (
+                    {stats.map((stat, i) => (
                         <motion.div
                             key={stat.label}
-                            variants={staggerItem}
-                            className="glass-card rounded-2xl p-6 sm:p-8 text-center hover:border-[rgba(200,168,75,0.4)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(200,168,75,0.1)] group"
+                            variants={staggerItemScale}
+                            className="glass-card rounded-2xl p-8 sm:p-10 text-center hover:border-[rgba(200,168,75,0.4)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(200,168,75,0.15)] group relative overflow-hidden"
                         >
-                            <div className="text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-playfair)] gradient-text mb-2 group-hover:scale-105 transition-transform duration-300 origin-center">
+                            {/* Animated corner accent */}
+                            <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 20 + i * 4, repeat: Infinity, ease: "linear" }}
+                                className="absolute -top-6 -right-6 w-20 h-20 border border-[rgba(200,168,75,0.12)] rounded-full"
+                                aria-hidden="true"
+                            />
+                            <motion.div
+                                animate={{ rotate: -360 }}
+                                transition={{ duration: 28 + i * 4, repeat: Infinity, ease: "linear" }}
+                                className="absolute -bottom-8 -left-8 w-28 h-28 border border-[rgba(200,168,75,0.08)] rounded-full"
+                                aria-hidden="true"
+                            />
+                            <div className="text-5xl sm:text-6xl lg:text-7xl font-bold font-[family-name:var(--font-playfair)] gradient-text mb-3 group-hover:scale-110 transition-transform duration-300 origin-center relative z-10">
                                 <AnimatedNumber value={stat.value} />
                             </div>
                             {stat.suffix && (
-                                <div className="text-[#8892b0] text-xs uppercase tracking-wider mb-1">
+                                <div className="text-[var(--kgu-muted)] text-sm uppercase tracking-wider mb-1 relative z-10">
                                     {stat.suffix}
                                 </div>
                             )}
-                            <div className="text-[#e8eaf6] font-medium text-sm">{stat.label}</div>
+                            <div className="text-[var(--kgu-text)] font-medium text-base sm:text-lg relative z-10">{stat.label}</div>
                         </motion.div>
                     ))}
                 </StaggerContainer>

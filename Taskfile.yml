@@ -1,5 +1,8 @@
 version: "3"
 
+# Dev / tooling tasks.
+# Build tasks (make build, make docker-build, etc.) live in Makefile.
+
 tasks:
   install:
     desc: Install project dependencies
@@ -7,36 +10,26 @@ tasks:
       - npm ci
 
   dev:
-    desc: Start development server
+    desc: Start Next.js development server
     cmds:
       - npm run dev
 
-  build:
-    desc: Create production build
-    cmds:
-      - npm run build
-
   lint:
-    desc: Run ESLint
+    desc: Run ESLint across the project
     cmds:
       - npm run lint
 
-  start:
-    desc: Start production server (run build first)
+  lint:fix:
+    desc: Run ESLint and auto-fix fixable issues
     cmds:
-      - npm run start
+      - npm run lint -- --fix
+
+  test:
+    desc: Run test suite
+    cmds:
+      - npm test
 
   clean:
     desc: Remove build artifacts and node_modules
     cmds:
       - rm -rf .next node_modules
-
-  docker:build:
-    desc: Build Docker image
-    cmds:
-      - docker build -t adamenko-landing-page:latest .
-
-  docker:run:
-    desc: Run Docker container locally on port 3000
-    cmds:
-      - docker run -p 3000:3000 adamenko-landing-page:latest
