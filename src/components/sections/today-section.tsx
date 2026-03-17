@@ -1,125 +1,80 @@
 "use client";
 
-import { useRef } from "react";
-import { useInView, motion } from "framer-motion";
+import { FadeIn, StaggerContainer, staggerItem } from "@/components/ui/motion";
+import { motion } from "framer-motion";
+import { GraduationCap, FlaskConical, Trophy, HardHat, HeartHandshake, Factory } from "lucide-react";
 import type { TodayHighlight } from "@/types/content";
+import type { ReactNode } from "react";
 
-interface TodaySectionProps {
-    highlights: TodayHighlight[];
+const ICON_MAP: Record<string, ReactNode> = {
+  "Масштаб": <GraduationCap className="w-6 h-6" />,
+  "Наука и инновации": <FlaskConical className="w-6 h-6" />,
+  "Студенческая жизнь": <Trophy className="w-6 h-6" />,
+  "Студенческие отряды": <HardHat className="w-6 h-6" />,
+  "Сообщество и поддержка": <HeartHandshake className="w-6 h-6" />,
+  "Партнёрство с индустрией": <Factory className="w-6 h-6" />,
+};
+
+function HighlightCard({ highlight }: { highlight: TodayHighlight }) {
+  return (
+    <motion.div
+      variants={staggerItem}
+      className="glass-card rounded-2xl p-6 group hover:border-[var(--border-hover)] transition-all duration-300 relative overflow-hidden"
+    >
+      {/* glow */}
+      <div className="absolute -top-12 -right-12 w-32 h-32 bg-[var(--gold-glow)] rounded-full blur-3xl opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none" aria-hidden="true" />
+
+      <div className="relative z-10">
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[var(--gold-glow)] to-[var(--gold-dim)] border border-[var(--border)] flex items-center justify-center text-[var(--gold)] mb-4 group-hover:border-[var(--border-hover)] transition-all duration-300">
+          {ICON_MAP[highlight.title] || <GraduationCap className="w-6 h-6" />}
+        </div>
+        <h3 className="text-[var(--text-primary)] font-bold text-lg mb-2 group-hover:text-[var(--gold)] transition-colors">
+          {highlight.title}
+        </h3>
+        <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-4">
+          {highlight.description}
+        </p>
+
+        {highlight.stat && (
+          <div className="flex items-baseline gap-2 mt-auto pt-3 border-t border-[var(--border)]">
+            <span className="text-[var(--gold)] font-bold text-xl">{highlight.stat}</span>
+            {highlight.statLabel && (
+              <span className="text-[var(--text-muted)] text-xs uppercase tracking-wider">
+                {highlight.statLabel}
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
 }
 
-function HighlightCard({ item, index }: { item: TodayHighlight; index: number }) {
-    const ref = useRef<HTMLDivElement>(null);
-    const isInView = useInView(ref, { once: true, margin: "-60px" });
-
-    return (
-        <motion.div
-            ref={ref}
-            initial={{ opacity: 0, y: 32 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.55, delay: (index % 3) * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="glass-card p-7 flex flex-col gap-4 group hover:border-[#c8a84b]/40 transition-colors duration-300"
-        >
-            {/* Icon + optional stat */}
-            <div className="flex items-start justify-between gap-3">
-                <span
-                    className="text-3xl leading-none select-none"
-                    role="img"
-                    aria-hidden="true"
-                >
-                    {item.icon}
-                </span>
-
-                {item.stat && (
-                    <div className="text-right shrink-0">
-                        <div className="text-2xl font-extrabold leading-none gradient-text">
-                            {item.stat}
-                        </div>
-                        {item.statLabel && (
-                            <div className="text-[10px] font-semibold tracking-wider uppercase text-[var(--kgu-muted)] mt-0.5">
-                                {item.statLabel}
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
-
-            {/* Title */}
-            <h3 className="text-lg font-bold text-white leading-snug group-hover:text-[#c8a84b] transition-colors duration-300">
-                {item.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-sm text-[var(--kgu-muted)] leading-relaxed flex-1">
-                {item.description}
+export function TodaySection({ highlights }: { highlights: TodayHighlight[] }) {
+  return (
+    <section id="today" className="relative section-padding overflow-hidden" aria-labelledby="today-heading">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeIn>
+          <div className="text-center mb-16 sm:mb-20">
+            <span className="inline-block text-[var(--gold)] text-sm font-bold tracking-widest uppercase mb-4">Университет сегодня</span>
+            <h2
+              id="today-heading"
+              className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] mb-4"
+            >
+              КГУ <span className="gradient-text">сегодня</span>
+            </h2>
+            <p className="text-[var(--text-secondary)] text-base sm:text-lg max-w-xl mx-auto">
+              Наука, студенческое сообщество и партнёрство с индустрией
             </p>
+          </div>
+        </FadeIn>
 
-            {/* Bottom accent line */}
-            <div
-                className="h-px w-0 group-hover:w-full bg-gradient-to-r from-[#c8a84b] to-transparent transition-all duration-500 ease-out"
-                aria-hidden="true"
-            />
-        </motion.div>
-    );
-}
-
-export function TodaySection({ highlights }: TodaySectionProps) {
-    const headerRef = useRef<HTMLDivElement>(null);
-    const isHeaderInView = useInView(headerRef, { once: true, margin: "-80px" });
-
-    return (
-        <section
-            id="today"
-            className="relative py-32 overflow-hidden"
-            aria-labelledby="today-heading"
-        >
-            {/* Background */}
-            <div
-                className="absolute inset-0 bg-gradient-to-b from-[var(--kgu-deep)] to-[var(--kgu-navy)]"
-                aria-hidden="true"
-            />
-            <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                    background:
-                        "radial-gradient(ellipse 70% 50% at 80% 30%, rgba(200,168,75,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 20% 70%, rgba(200,168,75,0.04) 0%, transparent 60%)",
-                }}
-                aria-hidden="true"
-            />
-
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Header */}
-                <motion.div
-                    ref={headerRef}
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-center mb-20"
-                >
-                    <span className="inline-block text-[#c8a84b] text-sm font-bold tracking-widest uppercase mb-6">
-                        КГУ сегодня
-                    </span>
-                    <h2
-                        id="today-heading"
-                        className="text-4xl sm:text-5xl font-extrabold text-white mb-6 leading-tight"
-                    >
-                        Студенческий.{" "}
-                        <span className="gradient-text">Научный. Живой.</span>
-                    </h2>
-                    <p className="text-lg text-[var(--kgu-muted)] max-w-2xl mx-auto leading-relaxed">
-                        Курганский государственный университет — это не только страницы истории,
-                        но и кипящая студенческая жизнь, прорывные научные проекты
-                        и крепкие связи с промышленностью региона.
-                    </p>
-                </motion.div>
-
-                {/* Cards grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {highlights.map((item, index) => (
-                        <HighlightCard key={item.title} item={item} index={index} />
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {highlights.map((h) => (
+            <HighlightCard key={h.title} highlight={h} />
+          ))}
+        </StaggerContainer>
+      </div>
+    </section>
+  );
 }

@@ -48,15 +48,16 @@ export interface InstituteItem {
     name: string;
     description: string;
     image?: string;
+    vkUrl?: string;
 }
 
-    export interface TodayHighlight {
-        icon: string;
-        title: string;
-        description: string;
-        stat?: string;
-        statLabel?: string;
-    }
+export interface TodayHighlight {
+    icon: string;
+    title: string;
+    description: string;
+    stat?: string;
+    statLabel?: string;
+}
 
 export interface LandingContent {
     hero: HeroContent;
@@ -68,7 +69,7 @@ export interface LandingContent {
     alumni: AlumnusItem[];
     scientists: ScientistItem[];
     institutes: InstituteItem[];
-        todayHighlights: TodayHighlight[];
+    todayHighlights: TodayHighlight[];
     ctaTitle: string;
     ctaSubtitle: string;
     ctaLinks: { label: string; href: string }[];

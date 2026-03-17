@@ -1,122 +1,77 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FadeIn } from "@/components/ui/motion";
-import { FloatingShapes } from "@/components/ui/floating-shapes";
-import type { LandingContent } from "@/types/content";
+import { motion } from "framer-motion";
+import { ArrowUpRight, MapPin } from "lucide-react";
 
 interface CtaSectionProps {
-    title: string;
-    subtitle: string;
-    links: LandingContent["ctaLinks"];
+  title: string;
+  subtitle: string;
+  links: { label: string; href: string }[];
 }
 
 export function CtaSection({ title, subtitle, links }: CtaSectionProps) {
-    return (
-        <section
-            id="cta"
-            className="relative py-32 overflow-hidden"
-            aria-labelledby="cta-heading"
-        >
-            {/* Animated background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--kgu-navy)] via-[var(--kgu-deep-alt)] to-[var(--kgu-navy)]" aria-hidden="true" />
-            <motion.div
-                animate={{
-                    scale: [1, 1.05, 1],
-                    opacity: [0.4, 0.7, 0.4],
-                }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-0"
-                style={{
-                    background:
-                        "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(200,168,75,0.12) 0%, transparent 100%)",
-                }}
-                aria-hidden="true"
+  return (
+    <section id="cta" className="relative section-padding overflow-hidden" aria-labelledby="cta-heading">
+      {/* background accents */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--navy)] via-[var(--navy-light)] to-[var(--navy)]" aria-hidden="true" />
+      <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[600px] h-[600px] bg-[var(--gold-glow)] rounded-full blur-[200px] opacity-20 pointer-events-none" aria-hidden="true" />
+
+      <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <FadeIn>
+          <h2
+            id="cta-heading"
+            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] mb-6"
+          >
+            {title}
+          </h2>
+          <p className="text-[var(--text-secondary)] text-base sm:text-lg max-w-xl mx-auto mb-10">
+            {subtitle}
+          </p>
+        </FadeIn>
+
+        <FadeIn delay={0.2}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {links.map((link, i) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className={
+                  i === 0
+                    ? "inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-base bg-gradient-to-r from-[var(--gold)] to-[#e8c36a] text-[var(--navy)] shadow-[0_0_24px_var(--gold-glow)] hover:shadow-[0_0_40px_var(--gold-glow)] transition-shadow"
+                    : "inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-base border border-[var(--border)] text-[var(--text-primary)] hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors"
+                }
+              >
+                {link.label} <ArrowUpRight className="w-4 h-4" />
+              </motion.a>
+            ))}
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* Map */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 sm:mt-20">
+        <FadeIn delay={0.3}>
+          <div className="flex items-center gap-2 mb-4">
+            <MapPin className="w-4 h-4 text-[var(--gold)]" />
+            <span className="text-[var(--text-primary)] font-semibold text-sm">Административный корпус КГУ</span>
+            <span className="text-[var(--text-muted)] text-xs hidden sm:inline">· г. Курган, ул. Советская, 63</span>
+          </div>
+          <div className="rounded-xl overflow-hidden border border-[var(--border)] h-[280px] sm:h-[340px]">
+            <iframe
+              title="Карта КГУ"
+              src="https://yandex.ru/map-widget/v1/?ll=65.345002%2C55.434992&z=16&pt=65.345002%2C55.434992%2Cpm2rdm&scroll=false"
+              className="w-full h-full border-0"
+              allowFullScreen
+              loading="lazy"
             />
-
-            {/* Decorative circles — spinning */}
-            <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-                    className="absolute -left-24 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full border border-[rgba(200,168,75,0.06)]"
-                />
-                <motion.div
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                    className="absolute -left-12 top-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-[rgba(200,168,75,0.1)]"
-                />
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-                    className="absolute -right-24 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full border border-[rgba(200,168,75,0.06)]"
-                />
-                <motion.div
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-                    className="absolute -right-12 top-1/2 -translate-y-1/2 w-64 h-64 rounded-full border border-[rgba(200,168,75,0.1)]"
-                />
-            </div>
-
-            <FloatingShapes />
-
-            <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <FadeIn>
-                    <span className="inline-block text-[#c8a84b] text-sm font-bold tracking-widest uppercase mb-8">
-                        Присоединяйся
-                    </span>
-
-                    <h2
-                        id="cta-heading"
-                        className="font-[family-name:var(--font-playfair)] text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold text-[var(--kgu-text)] mb-8 leading-[1.05]"
-                    >
-                        {title}
-                    </h2>
-
-                    <p className="text-[var(--kgu-muted)] text-xl sm:text-2xl max-w-2xl mx-auto leading-relaxed mb-14">
-                        {subtitle}
-                    </p>
-
-                    {/* CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        {links.map((link, index) => (
-                            <motion.a
-                                key={link.label}
-                                href={link.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.97 }}
-                                className={
-                                    index === 0
-                                        ? "inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#c8a84b] to-[#a8882b] text-[#0a0e1a] font-bold text-sm rounded-xl shadow-lg hover:shadow-[0_0_40px_rgba(200,168,75,0.5)] transition-shadow duration-300"
-                                        : "inline-flex items-center justify-center px-8 py-4 glass-card text-[var(--kgu-text)] font-semibold text-sm rounded-xl hover:border-[rgba(200,168,75,0.5)] hover:text-[#c8a84b] transition-all duration-300"
-                                }
-                            >
-                                {link.label}
-                            </motion.a>
-                        ))}
-                    </div>
-
-                    {/* Stats strip */}
-                    <div className="mt-16 pt-10 border-t border-[rgba(200,168,75,0.15)]">
-                        <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                            {[
-                                { value: "70+", label: "лет образования" },
-                                { value: "8 000+", label: "студентов" },
-                                { value: "8", label: "институтов" },
-                            ].map((item) => (
-                                <div key={item.label} className="text-center">
-                                    <p className="gradient-text font-bold text-2xl sm:text-4xl font-[family-name:var(--font-playfair)]">
-                                        {item.value}
-                                    </p>
-                                    <p className="text-[var(--kgu-muted)] text-[0.65rem] sm:text-sm mt-1 leading-tight">{item.label}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </FadeIn>
-            </div>
-        </section>
-    );
+          </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
 }

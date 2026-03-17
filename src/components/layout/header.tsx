@@ -2,151 +2,129 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
-    { label: "История", href: "#history" },
-    { label: "Вехи", href: "#timeline" },
-    { label: "Цифры", href: "#stats" },
-    { label: "Люди", href: "#people" },
-    { label: "Структура", href: "#structure" },
+  { label: "История", href: "#timeline" },
+  { label: "Цифры", href: "#stats" },
+  { label: "Люди", href: "#people" },
+  { label: "Структура", href: "#structure" },
+  { label: "Сегодня", href: "#today" },
 ];
 
 export function Header() {
-    const [scrolled, setScrolled] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 60);
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    return (
-        <motion.header
-            initial={{ y: -80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                ? "bg-[var(--kgu-header)]/95 backdrop-blur-xl border-b border-[rgba(200,168,75,0.2)] shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
-                : "bg-[var(--kgu-header)]/70 backdrop-blur-md border-b border-[rgba(200,168,75,0.08)]"
-                }`}
-            role="banner"
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
+
+  return (
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-[var(--navy)]/95 backdrop-blur-xl border-b border-[var(--border)] shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
+          : "bg-transparent border-b border-transparent"
+      }`}
+      role="banner"
+    >
+      <nav
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between"
+        aria-label="Главная навигация"
+      >
+        <a href="#" className="group flex-shrink-0" aria-label="КГУ — на главную">
+          <Image
+            src="/images/logo.svg"
+            alt="Логотип КГУ"
+            width={200}
+            height={56}
+            className="h-14 w-auto brightness-0 invert opacity-90 group-hover:opacity-100 group-hover:drop-shadow-[0_0_12px_var(--gold-glow)] transition-all duration-300"
+            priority
+          />
+        </a>
+
+        <ul className="hidden md:flex items-center gap-1" role="list">
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="px-3 lg:px-4 py-2 text-[var(--text-secondary)] hover:text-[var(--gold)] text-sm font-medium rounded-lg hover:bg-[var(--gold-glow)] transition-all duration-200"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="hidden md:flex items-center">
+          <a
+            href="#cta"
+            className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[var(--gold)] to-[var(--gold-light)] text-[var(--navy)] text-sm font-semibold rounded-lg hover:shadow-[0_0_24px_var(--gold-glow)] transition-all duration-300 hover:scale-105 active:scale-95"
+          >
+            Поступить
+          </a>
+        </div>
+
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden p-2 rounded-lg text-[var(--text-secondary)] hover:text-[var(--gold)] hover:bg-[var(--gold-glow)] transition-colors"
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
         >
-            <nav
-                className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"
-                aria-label="Главная навигация"
-            >
-                {/* Logo */}
+          {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </nav>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-[var(--navy)]/98 backdrop-blur-xl border-b border-[var(--border)] overflow-hidden"
+          >
+            <ul className="px-4 py-3 space-y-1" role="list">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="block px-4 py-3 text-[var(--text-secondary)] hover:text-[var(--gold)] text-sm font-medium rounded-lg hover:bg-[var(--gold-glow)] transition-all"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+              <li>
                 <a
-                    href="#"
-                    className="flex items-center gap-3 group"
-                    aria-label="КГУ — на главную"
+                  href="#cta"
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-4 py-3 bg-gradient-to-r from-[var(--gold)] to-[var(--gold-light)] text-[var(--navy)] text-sm font-semibold rounded-lg text-center mt-2"
                 >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                        src="/images/logo.svg"
-                        alt="КГУ логотип"
-                        className="h-10 w-auto group-hover:opacity-80 transition-opacity duration-300"
-                        style={{ filter: "brightness(0) invert(1)" }}
-                    />
-                    <div className="flex flex-col hidden sm:block">
-                        <span className="text-white/90 font-bold text-base leading-none tracking-wide group-hover:text-[#c8a84b] transition-colors">КГУ</span>
-                        <span className="text-white/50 text-xs leading-tight mt-0.5 block">Курганский гос. университет</span>
-                    </div>
+                  Поступить
                 </a>
-
-                {/* Desktop nav */}
-                <ul className="hidden md:flex items-center gap-1" role="list">
-                    {navLinks.map((link) => (
-                        <li key={link.href}>
-                            <a
-                                href={link.href}
-                                className="px-4 py-2 text-white/60 hover:text-[#c8a84b] text-sm font-medium rounded-md hover:bg-[rgba(200,168,75,0.08)] transition-all duration-200"
-                            >
-                                {link.label}
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-
-                {/* Theme toggle + CTA Button desktop */}
-                <div className="hidden md:flex items-center gap-2">
-                    <ThemeToggle />
-                    <a
-                        href="#cta"
-                        className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[#c8a84b] to-[#a8882b] text-[#0a0e1a] text-sm font-semibold rounded-lg hover:shadow-[0_0_20px_rgba(200,168,75,0.4)] transition-all duration-300 hover:scale-105 active:scale-95"
-                    >
-                        Поступить
-                    </a>
-                </div>
-
-                {/* Mobile menu button */}
-                <button
-                    onClick={() => setMenuOpen(!menuOpen)}
-                    className="md:hidden p-2 rounded-md text-white/60 hover:text-[#c8a84b] hover:bg-[rgba(200,168,75,0.08)] transition-colors"
-                    aria-expanded={menuOpen}
-                    aria-controls="mobile-menu"
-                    aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
-                >
-                    <span className="sr-only">{menuOpen ? "Закрыть" : "Меню"}</span>
-                    <div className="w-5 h-4 flex flex-col justify-between" aria-hidden="true">
-                        <motion.span
-                            animate={menuOpen ? { rotate: 45, translateY: 7 } : { rotate: 0, translateY: 0 }}
-                            className="block w-full h-0.5 bg-current origin-center transition-transform"
-                        />
-                        <motion.span
-                            animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-                            className="block w-full h-0.5 bg-current"
-                        />
-                        <motion.span
-                            animate={menuOpen ? { rotate: -45, translateY: -7 } : { rotate: 0, translateY: 0 }}
-                            className="block w-full h-0.5 bg-current origin-center transition-transform"
-                        />
-                    </div>
-                </button>
-            </nav>
-
-            {/* Mobile dropdown */}
-            <AnimatePresence>
-                {menuOpen && (
-                    <motion.div
-                        id="mobile-menu"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="md:hidden bg-[var(--kgu-header)]/95 backdrop-blur-xl border-b border-[rgba(200,168,75,0.15)] overflow-hidden"
-                    >
-                        <ul className="px-4 py-3 space-y-1" role="list">
-                            {navLinks.map((link) => (
-                                <li key={link.href}>
-                                    <a
-                                        href={link.href}
-                                        onClick={() => setMenuOpen(false)}
-                                        className="block px-4 py-2.5 text-white/60 hover:text-[#c8a84b] text-sm font-medium rounded-md hover:bg-[rgba(200,168,75,0.08)] transition-all"
-                                    >
-                                        {link.label}
-                                    </a>
-                                </li>
-                            ))}
-                            <li className="flex items-center justify-between px-4 py-1.5">
-                                <span className="text-white/40 text-xs">Тема</span>
-                                <ThemeToggle />
-                            </li>
-                            <li>
-                                <a
-                                    href="#cta"
-                                    onClick={() => setMenuOpen(false)}
-                                    className="block px-4 py-2.5 bg-gradient-to-r from-[#c8a84b] to-[#a8882b] text-[#0a0e1a] text-sm font-semibold rounded-md text-center mt-2"
-                                >
-                                    Поступить
-                                </a>
-                            </li>
-                        </ul>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </motion.header>
-    );
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
+  );
 }

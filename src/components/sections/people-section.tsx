@@ -1,160 +1,220 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { FadeIn } from "@/components/ui/motion";
-import { FloatingShapes } from "@/components/ui/floating-shapes";
-import { PersonCard } from "@/components/ui/person-card";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FadeIn, StaggerContainer, staggerItem } from "@/components/ui/motion";
+import { X, ExternalLink } from "lucide-react";
 import type { Rector, AlumnusItem, ScientistItem } from "@/types/content";
 
-interface PeopleSectionProps {
-    rectors: Rector[];
-    alumni: AlumnusItem[];
-    scientists: ScientistItem[];
-}
-
 function SectionDivider({ label }: { label: string }) {
-    return (
-        <h3 className="text-[#c8a84b] font-semibold text-sm uppercase tracking-widest mb-8 flex items-center gap-3">
-            <span className="flex-1 h-px bg-[rgba(200,168,75,0.2)]" aria-hidden="true" />
-            {label}
-            <span className="flex-1 h-px bg-[rgba(200,168,75,0.2)]" aria-hidden="true" />
-        </h3>
-    );
+  return (
+    <h3 className="text-[var(--gold)] font-semibold text-sm uppercase tracking-widest mb-8 flex items-center gap-3">
+      <span className="flex-1 h-px bg-[var(--border)]" aria-hidden="true" />
+      {label}
+      <span className="flex-1 h-px bg-[var(--border)]" aria-hidden="true" />
+    </h3>
+  );
 }
 
-function RectorCard({ rector, index }: { rector: Rector; index: number }) {
-    const [imgError, setImgError] = useState(false);
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ delay: index * 0.08, duration: 0.55, ease: [0.25, 0.4, 0.25, 1] }}
-            whileHover={{ y: -6, boxShadow: "0 8px 40px rgba(200,168,75,0.18)" }}
-            className="glass-card rounded-xl p-5 text-center hover:border-[rgba(200,168,75,0.4)] transition-colors duration-300 group cursor-default"
-        >
-            {/* Avatar */}
-            <div className="relative w-16 h-16 mx-auto mb-3">
-                {rector.photo && !imgError ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                        src={rector.photo}
-                        alt={`Фото: ${rector.name}`}
-                        className="w-16 h-16 rounded-full object-cover object-top border-2 border-[rgba(200,168,75,0.3)] group-hover:border-[rgba(200,168,75,0.6)] transition-colors"
-                        onError={() => setImgError(true)}
-                    />
-                ) : (
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[var(--kgu-blue)] to-[var(--kgu-navy-alt)] border-2 border-[rgba(200,168,75,0.3)] flex items-center justify-center group-hover:border-[rgba(200,168,75,0.6)] transition-colors">
-                        <span className="text-[#c8a84b] font-bold text-lg font-[family-name:var(--font-playfair)]" aria-hidden="true">
-                            {rector.name.split(" ")[0][0]}
-                            {rector.name.split(" ")[1]?.[0]}
-                        </span>
-                    </div>
-                )}
-                {/* Glow ring on hover */}
-                <motion.div
-                    className="absolute inset-0 rounded-full border border-[rgba(200,168,75,0.4)]"
-                    animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0, 0.4] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.4 }}
-                    aria-hidden="true"
-                />
+function RectorCard({ rector }: { rector: Rector }) {
+  const [imgError, setImgError] = useState(false);
+  return (
+    <motion.div
+      variants={staggerItem}
+      whileHover={{ y: -4, boxShadow: "0 8px 40px rgba(212,168,69,0.12)" }}
+      className="glass-card rounded-2xl p-5 sm:p-6 flex flex-col items-center sm:flex-row sm:items-start gap-4 sm:gap-5 hover:border-[var(--border-hover)] transition-all duration-300 group cursor-default"
+    >
+      <div className="flex-shrink-0">
+        {rector.photo && !imgError ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={rector.photo}
+            alt={rector.name}
+            className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl object-cover object-center border-2 border-[var(--border)] transition-colors"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl bg-gradient-to-br from-[var(--navy-mid)] to-[var(--navy-light)] border-2 border-[var(--border)] flex items-center justify-center transition-colors">
+            <span className="text-[var(--gold)] font-bold text-2xl font-[family-name:var(--font-playfair)]" aria-hidden="true">
+              {rector.name.split(" ")[0][0]}
+              {rector.name.split(" ")[1]?.[0]}
+            </span>
+          </div>
+        )}
+      </div>
+      <div className="text-center sm:text-left min-w-0">
+        <p className="text-[var(--text-primary)] font-bold text-lg leading-snug mb-1 group-hover:text-[var(--gold)] transition-colors">
+          {rector.name}
+        </p>
+        <p className="text-[var(--gold)] text-sm font-semibold mb-1">{rector.period}</p>
+        {rector.note && (
+          <span className="inline-block text-[10px] px-2 py-0.5 rounded-full bg-[var(--gold-glow)] text-[var(--gold)] border border-[var(--gold-dim)] mb-2">
+            {rector.note}
+          </span>
+        )}
+        {rector.bio && (
+          <p className="text-[var(--text-secondary)] text-sm leading-relaxed mt-1">{rector.bio}</p>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+function AlumnusCard({ person, onClick }: { person: AlumnusItem; onClick: () => void }) {
+  const [imgError, setImgError] = useState(false);
+  return (
+    <motion.button
+      variants={staggerItem}
+      whileHover={{ y: -4, boxShadow: "0 8px 40px rgba(212,168,69,0.12)" }}
+      onClick={onClick}
+      className="glass-card rounded-2xl p-5 sm:p-6 text-left hover:border-[var(--border-hover)] transition-all duration-300 group cursor-pointer w-full"
+    >
+      <div className="flex items-start gap-4">
+        <div className="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 rounded-xl overflow-hidden border-2 border-[var(--border)] transition-colors">
+          {person.photo && !imgError ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={person.photo} alt="" className="w-full h-full object-cover object-center" onError={() => setImgError(true)} />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[var(--navy-mid)] to-[var(--navy-light)] flex items-center justify-center text-[var(--gold)] font-bold text-2xl">
+              {person.name[0]}
             </div>
-            <p className="text-[var(--kgu-text)] font-semibold text-base leading-tight mb-1 group-hover:text-[#c8a84b] transition-colors">
-                {rector.name}
-            </p>
-            <p className="text-[#c8a84b] text-xs font-medium mb-1">{rector.period}</p>
-            {rector.note && (
-                <p className="text-[var(--kgu-muted)] text-sm">{rector.note}</p>
-            )}
-        </motion.div>
-    );
-}
-
-export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProps) {
-    return (
-        <section
-            id="people"
-            className="relative py-32 overflow-hidden"
-            aria-labelledby="people-heading"
-        >
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[var(--kgu-deep)] via-[var(--kgu-navy)] to-[var(--kgu-deep)]" aria-hidden="true" />
-
-            {/* Decorative orbs */}
-            <div className="absolute top-20 left-[-10%] w-80 h-80 rounded-full bg-[#c8a84b]/5 blur-3xl pointer-events-none" aria-hidden="true" />
-            <div className="absolute bottom-20 right-[-10%] w-96 h-96 rounded-full bg-[#c8a84b]/4 blur-3xl pointer-events-none" aria-hidden="true" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[var(--kgu-blue)]/20 blur-[120px] pointer-events-none" aria-hidden="true" />
-            <FloatingShapes />
-
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Header */}
-                <FadeIn>
-                    <div className="text-center mb-20">
-                        <span className="inline-block text-[#c8a84b] text-sm font-bold tracking-widest uppercase mb-6">
-                            Люди и имена
-                        </span>
-                        <h2
-                            id="people-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-[var(--kgu-text)] mb-5 sm:mb-6"
-                        >
-                            Историю делают
-                            <span className="gradient-text"> люди</span>
-                        </h2>
-                        <p className="text-[var(--kgu-muted)] text-base sm:text-xl max-w-xl mx-auto">
-                            Руководители, выдающиеся выпускники и основатели научных школ КГУ
-                        </p>
-                    </div>
-                </FadeIn>
-
-                {/* Rectors */}
-                <FadeIn delay={0.1}>
-                    <div className="mb-20">
-                        <SectionDivider label="Ректоры КГУ" />
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            {rectors.map((rector, i) => (
-                                <RectorCard key={rector.name} rector={rector} index={i} />
-                            ))}
-                        </div>
-                    </div>
-                </FadeIn>
-
-                {/* Alumni — PersonCard grid */}
-                <FadeIn delay={0.2}>
-                    <div className="mb-20">
-                        <SectionDivider label="Знаменитые выпускники" />
-                        <p className="text-center text-[var(--kgu-muted)] text-base mb-10 -mt-4">
-                            Нажмите на карточку, чтобы узнать больше
-                        </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {alumni.map((person, i) => (
-                                <PersonCard key={person.name} person={person} index={i} />
-                            ))}
-                        </div>
-                    </div>
-                </FadeIn>
-
-                {/* Scientists */}
-                <FadeIn delay={0.3}>
-                    <div>
-                        <SectionDivider label="Основатели научных школ" />
-                        {scientists.map((scientist, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-                                className="glass-card rounded-xl p-6 text-center max-w-2xl mx-auto"
-                            >
-                                <p className="text-[#c8a84b] font-semibold mb-2">{scientist.names}</p>
-                                <p className="text-[var(--kgu-muted)] text-sm leading-relaxed">{scientist.description}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </FadeIn>
+          )}
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-[var(--text-primary)] font-bold text-lg mb-1 group-hover:text-[var(--gold)] transition-colors">{person.name}</p>
+          <p className="text-[var(--text-muted)] text-xs mb-2">{person.graduation}</p>
+          <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-3 line-clamp-2">{person.achievement}</p>
+          {person.tags && (
+            <div className="flex flex-wrap gap-1.5">
+              {person.tags.map((t) => (
+                <span key={t} className="text-[10px] px-2.5 py-0.5 rounded-full bg-[var(--gold-glow)] text-[var(--gold)] border border-[var(--gold-dim)]">{t}</span>
+              ))}
             </div>
-        </section>
-    );
+          )}
+        </div>
+      </div>
+    </motion.button>
+  );
 }
 
+function AlumnusModal({ person, onClose }: { person: AlumnusItem; onClose: () => void }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.92, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.92, opacity: 0 }}
+        transition={{ type: "spring" as const, stiffness: 260, damping: 24 }}
+        onClick={(e) => e.stopPropagation()}
+        className="glass-card rounded-2xl p-6 sm:p-8 max-w-lg w-full max-h-[80vh] overflow-y-auto relative"
+      >
+        <button onClick={onClose} className="absolute top-3 right-3 p-1.5 rounded-full bg-black/50 text-white hover:text-[var(--gold)] hover:bg-black/70 transition-colors z-10 backdrop-blur-sm" aria-label="Закрыть">
+          <X className="w-5 h-5" />
+        </button>
+        {person.photo && (
+          <div className="w-full aspect-[4/3] rounded-xl overflow-hidden mb-5 -mt-1">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={person.photo} alt={person.name} className="w-full h-full object-cover object-center" />
+          </div>
+        )}
+        <h3 className="text-[var(--text-primary)] font-bold text-xl mb-1">{person.name}</h3>
+        <p className="text-[var(--text-muted)] text-xs mb-3">{person.graduation}</p>
+        {person.tags && (
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {person.tags.map((t) => (
+              <span key={t} className="text-[10px] px-2.5 py-0.5 rounded-full bg-[var(--gold-glow)] text-[var(--gold)] border border-[var(--gold-dim)]">{t}</span>
+            ))}
+          </div>
+        )}
+        <p className="text-[var(--text-secondary)] text-sm leading-relaxed mb-4">{person.bioExtended || person.achievement}</p>
+        {person.wikiUrl && (
+          <a href={person.wikiUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[var(--sky)] text-sm font-medium hover:underline">
+            Подробнее в Википедии <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function ScientistCard({ scientist }: { scientist: ScientistItem }) {
+  return (
+    <motion.div
+      variants={staggerItem}
+      className="glass-card rounded-2xl p-6 hover:border-[var(--border-hover)] transition-all duration-300 group"
+    >
+      <p className="text-[var(--gold)] font-bold text-base mb-3 group-hover:text-[var(--gold-light)] transition-colors">{scientist.names}</p>
+      <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{scientist.description}</p>
+    </motion.div>
+  );
+}
+
+export function PeopleSection({ rectors, alumni, scientists }: { rectors: Rector[]; alumni: AlumnusItem[]; scientists: ScientistItem[] }) {
+  const [selected, setSelected] = useState<AlumnusItem | null>(null);
+
+  return (
+    <section id="people" className="relative section-padding overflow-hidden" aria-labelledby="people-heading">
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--navy)] via-[var(--navy-light)] to-[var(--navy)]" aria-hidden="true" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <FadeIn>
+          <div className="text-center mb-16 sm:mb-20">
+            <span className="inline-block text-[var(--gold)] text-sm font-bold tracking-widest uppercase mb-4">Люди и имена</span>
+            <h2 id="people-heading" className="font-[family-name:var(--font-playfair)] text-3xl sm:text-5xl lg:text-6xl font-bold text-[var(--text-primary)] mb-4">
+              Историю делают<span className="gradient-text"> люди</span>
+            </h2>
+            <p className="text-[var(--text-secondary)] text-base sm:text-lg max-w-xl mx-auto">Руководители, выдающиеся выпускники и основатели научных школ КГУ</p>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <div className="mb-20">
+            <SectionDivider label="Ректоры КГУ" />
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {rectors.map((r) => <RectorCard key={r.name} rector={r} />)}
+            </StaggerContainer>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.2}>
+          <div className="mb-20">
+            <SectionDivider label="Знаменитые выпускники" />
+            <p className="text-center text-[var(--text-muted)] text-sm mb-8 -mt-4">Нажмите на карточку, чтобы узнать больше</p>
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {alumni.map((person) => (
+                <AlumnusCard key={person.name} person={person} onClick={() => setSelected(person)} />
+              ))}
+            </StaggerContainer>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.3}>
+          <div>
+            <SectionDivider label="Основатели научных школ" />
+            <StaggerContainer className="grid grid-cols-1 gap-4 max-w-3xl mx-auto">
+              {scientists.map((sc, i) => (
+                <ScientistCard key={i} scientist={sc} />
+              ))}
+            </StaggerContainer>
+          </div>
+        </FadeIn>
+      </div>
+
+      <AnimatePresence>
+        {selected && <AlumnusModal person={selected} onClose={() => setSelected(null)} />}
+      </AnimatePresence>
+    </section>
+  );
+}

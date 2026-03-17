@@ -177,7 +177,7 @@ function parseLandingContent(raw: string): LandingContent {
                 photo: "/images/alumni/bogomolov.jpg",
                 bioExtended: "Окончил Курганский машиностроительный институт в 1972 году. Прошёл путь от инженера до высшего руководства региона. С 1996 по 2014 год возглавлял Курганскую область — 18 лет подряд. Под его руководством реализовывались масштабные инфраструктурные проекты: реконструкция дорог, строительство социальных объектов, развитие сельского хозяйства. Один из наиболее опытных губернаторов Уральского региона.",
                 tags: ["Губернатор", "Политик", "Курганская обл."],
-                wikiUrl: "https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D0%B3%D0%BE%D0%BC%D0%BE%D0%BB%D0%BE%D0%B2,_%D0%9E%D0%BB%D0%B5%D0%B3_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B5%D0%B2%D0%B8%D1%87_(%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA)",
+                wikiUrl: "https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D0%B3%D0%BE%D0%BC%D0%BE%D0%BB%D0%BE%D0%B2,_%D0%9E%D0%BB%D0%B5%D0%B3_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
             },
             {
                 name: "Юрий Николаевич Гальцев",
@@ -242,31 +242,37 @@ function parseLandingContent(raw: string): LandingContent {
                 name: "Политехнический институт",
                 description: "Инженерные и технические специальности",
                 image: "/images/institutes/polytechnic.png",
+                vkUrl: "https://vk.com/polytech45",
             },
             {
                 name: "Институт экономики и права",
                 description: "Экономика, юриспруденция, управление",
                 image: "/images/institutes/economics.png",
+                vkUrl: "https://vk.com/institutekonomikyiprava_kgsu",
             },
             {
                 name: "Гуманитарный институт",
                 description: "История, филология, журналистика",
                 image: "/images/institutes/humanities.png",
+                vkUrl: "https://vk.com/huminst_kgsu",
             },
             {
                 name: "Институт педагогики, психологии и физической культуры",
                 description: "Педагогика, психология, физкультура",
                 image: "/images/institutes/pedagogy.png",
+                vkUrl: "https://vk.com/public177235144",
             },
             {
                 name: "Институт естественных наук",
                 description: "Биология, химия, экология",
                 image: "/images/institutes/natural.png",
+                vkUrl: "https://vk.com/club21113898",
             },
             {
                 name: "Институт математики и интеллектуальных систем",
                 description: "Математика, информатика, IT-технологии",
                 image: "/images/institutes/math.png",
+                vkUrl: "https://vk.com/club197617229",
             },
         ],
 
@@ -322,7 +328,7 @@ function parseLandingContent(raw: string): LandingContent {
             "Хочешь стать частью истории? Поступай в КГУ! Хочешь вспомнить молодость? Присоединяйся к сообществу выпускников!",
         ctaLinks: [
             { label: "Подать документы", href: "https://kgsu.ru/abitur/" },
-            { label: "Ассоциация выпускников", href: "https://kgsu.ru/alumni/" },
+            { label: "Группа ВКонтакте", href: "https://vk.com/kgsu_ru" },
             { label: "Новости университета", href: "https://kgsu.ru/news/" },
         ],
     };

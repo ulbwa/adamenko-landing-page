@@ -25,7 +25,7 @@ export default function Home() {
           scientists={content.scientists}
         />
         <StructureSection institutes={content.institutes} />
-          <TodaySection highlights={content.todayHighlights} />
+        <TodaySection highlights={content.todayHighlights} />
         <CtaSection
           title={content.ctaTitle}
           subtitle={content.ctaSubtitle}
