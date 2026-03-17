@@ -24,7 +24,7 @@ export function TimelineSection({ items }: TimelineSectionProps) {
             className="relative py-24 overflow-hidden"
             aria-labelledby="timeline-heading"
         >
-            <div className="absolute inset-0 bg-[#0a0e1a]" aria-hidden="true" />
+            <div className="absolute inset-0 bg-[var(--kgu-navy)]" aria-hidden="true" />
             {/* Grid pattern overlay */}
             <div
                 className="absolute inset-0 opacity-[0.03]"
@@ -44,7 +44,7 @@ export function TimelineSection({ items }: TimelineSectionProps) {
                         </span>
                         <h2
                             id="timeline-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e8eaf6] mb-4"
+                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--kgu-text)] mb-4"
                         >
                             Основные вехи
                             <br />
@@ -126,7 +126,7 @@ function TimelineItemComponent({ item, index, isRight }: TimelineItemComponentPr
                         initial={{ opacity: 0, y: 8 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.45, delay: 0.22 }}
-                        className="text-[#e8eaf6] font-bold text-xl mb-2 font-[family-name:var(--font-playfair)] group-hover:text-[#c8a84b] transition-colors"
+                        className="text-[var(--kgu-text)] font-bold text-xl mb-2 font-[family-name:var(--font-playfair)] group-hover:text-[#c8a84b] transition-colors"
                     >
                         {item.title}
                     </motion.h3>
@@ -134,7 +134,7 @@ function TimelineItemComponent({ item, index, isRight }: TimelineItemComponentPr
                         initial={{ opacity: 0, y: 10 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.5, delay: 0.3 }}
-                        className="text-[#8892b0] leading-relaxed text-sm"
+                        className="text-[var(--kgu-muted)] leading-relaxed text-sm"
                     >
                         {item.description}
                     </motion.p>

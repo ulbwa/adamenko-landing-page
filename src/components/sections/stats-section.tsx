@@ -61,7 +61,7 @@ export function StatsSection({ stats }: StatsSectionProps) {
         >
             {/* Background */}
             <div
-                className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a] to-[#0d1528]"
+                className="absolute inset-0 bg-gradient-to-b from-[var(--kgu-navy)] to-[var(--kgu-deep)]"
                 aria-hidden="true"
             />
             <div
@@ -81,7 +81,7 @@ export function StatsSection({ stats }: StatsSectionProps) {
                         </span>
                         <h2
                             id="stats-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e8eaf6]"
+                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--kgu-text)]"
                         >
                             Университет
                             <span className="gradient-text"> в цифрах</span>
@@ -102,11 +102,11 @@ export function StatsSection({ stats }: StatsSectionProps) {
                                 <AnimatedNumber value={stat.value} />
                             </div>
                             {stat.suffix && (
-                                <div className="text-[#8892b0] text-xs uppercase tracking-wider mb-1">
+                                <div className="text-[var(--kgu-muted)] text-xs uppercase tracking-wider mb-1">
                                     {stat.suffix}
                                 </div>
                             )}
-                            <div className="text-[#e8eaf6] font-medium text-sm">{stat.label}</div>
+                            <div className="text-[var(--kgu-text)] font-medium text-sm">{stat.label}</div>
                         </motion.div>
                     ))}
                 </StaggerContainer>

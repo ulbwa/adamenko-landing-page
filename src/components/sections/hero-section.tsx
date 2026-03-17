@@ -17,7 +17,7 @@ export function HeroSection({ content }: HeroSectionProps) {
         >
             {/* Animated gradient background */}
             <div
-                className="absolute inset-0 bg-gradient-to-br from-[#0a0e1a] via-[#0d1528] to-[#0a1830]"
+                className="absolute inset-0 bg-gradient-to-br from-[var(--kgu-navy)] via-[var(--kgu-deep)] to-[var(--kgu-navy-alt)]"
                 aria-hidden="true"
             />
 
@@ -73,7 +73,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-                    className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#e8eaf6] leading-[1.1] mb-6"
+                    className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[var(--kgu-text)] leading-[1.1] mb-6"
                 >
                     Курганский
                     <br />
@@ -87,7 +87,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.7 }}
-                    className="text-[#8892b0] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-4"
+                    className="text-[var(--kgu-muted)] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-4"
                 >
                     {content.subtitle}
                 </motion.p>
@@ -97,7 +97,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.9 }}
-                    className="text-[#e8eaf6]/70 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed mb-12"
+                    className="text-[var(--kgu-text-dim)] text-base sm:text-lg max-w-3xl mx-auto leading-relaxed mb-12"
                 >
                     {content.body}
                 </motion.p>
@@ -146,7 +146,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
                     aria-hidden="true"
                 >
-                    <span className="text-[#8892b0] text-xs tracking-widest uppercase">
+                    <span className="text-[var(--kgu-muted)] text-xs tracking-widest uppercase">
                         Прокрутите
                     </span>
                     <motion.div

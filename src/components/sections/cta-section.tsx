@@ -18,7 +18,7 @@ export function CtaSection({ title, subtitle, links }: CtaSectionProps) {
             aria-labelledby="cta-heading"
         >
             {/* Animated background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e1a] via-[#0d1f3c] to-[#0a0e1a]" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--kgu-navy)] via-[var(--kgu-deep-alt)] to-[var(--kgu-navy)]" aria-hidden="true" />
             <motion.div
                 animate={{
                     scale: [1, 1.05, 1],
@@ -49,12 +49,12 @@ export function CtaSection({ title, subtitle, links }: CtaSectionProps) {
 
                     <h2
                         id="cta-heading"
-                        className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#e8eaf6] mb-6 leading-[1.1]"
+                        className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[var(--kgu-text)] mb-6 leading-[1.1]"
                     >
                         {title}
                     </h2>
 
-                    <p className="text-[#8892b0] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-12">
+                    <p className="text-[var(--kgu-muted)] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-12">
                         {subtitle}
                     </p>
 
@@ -71,7 +71,7 @@ export function CtaSection({ title, subtitle, links }: CtaSectionProps) {
                                 className={
                                     index === 0
                                         ? "inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#c8a84b] to-[#a8882b] text-[#0a0e1a] font-bold text-sm rounded-xl shadow-lg hover:shadow-[0_0_40px_rgba(200,168,75,0.5)] transition-shadow duration-300"
-                                        : "inline-flex items-center justify-center px-8 py-4 glass-card text-[#e8eaf6] font-semibold text-sm rounded-xl hover:border-[rgba(200,168,75,0.5)] hover:text-[#c8a84b] transition-all duration-300"
+                                        : "inline-flex items-center justify-center px-8 py-4 glass-card text-[var(--kgu-text)] font-semibold text-sm rounded-xl hover:border-[rgba(200,168,75,0.5)] hover:text-[#c8a84b] transition-all duration-300"
                                 }
                             >
                                 {link.label}
@@ -91,7 +91,7 @@ export function CtaSection({ title, subtitle, links }: CtaSectionProps) {
                                     <p className="gradient-text font-bold text-2xl sm:text-3xl font-[family-name:var(--font-playfair)]">
                                         {item.value}
                                     </p>
-                                    <p className="text-[#8892b0] text-xs sm:text-sm mt-1">{item.label}</p>
+                                    <p className="text-[var(--kgu-muted)] text-xs sm:text-sm mt-1">{item.label}</p>
                                 </div>
                             ))}
                         </div>

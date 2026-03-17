@@ -55,7 +55,7 @@ export function StructureSection({ institutes }: StructureSectionProps) {
             className="relative py-24 overflow-hidden"
             aria-labelledby="structure-heading"
         >
-            <div className="absolute inset-0 bg-[#0d1528]" aria-hidden="true" />
+            <div className="absolute inset-0 bg-[var(--kgu-deep)]" aria-hidden="true" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <FadeIn>
@@ -65,12 +65,12 @@ export function StructureSection({ institutes }: StructureSectionProps) {
                         </span>
                         <h2
                             id="structure-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e8eaf6] mb-4"
+                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--kgu-text)] mb-4"
                         >
                             Институты
                             <span className="gradient-text"> сегодня</span>
                         </h2>
-                        <p className="text-[#8892b0] text-lg max-w-xl mx-auto">
+                        <p className="text-[var(--kgu-muted)] text-lg max-w-xl mx-auto">
                             КГУ — многопрофильный вуз, объединяющий восемь специализированных институтов
                         </p>
                     </div>
@@ -99,10 +99,10 @@ export function StructureSection({ institutes }: StructureSectionProps) {
                                     ICONS[index % ICONS.length]
                                 )}
                             </div>
-                            <h3 className="text-[#e8eaf6] font-bold text-base mb-2 leading-snug group-hover:text-[#c8a84b] transition-colors">
+                            <h3 className="text-[var(--kgu-text)] font-bold text-base mb-2 leading-snug group-hover:text-[#c8a84b] transition-colors">
                                 {institute.name}
                             </h3>
-                            <p className="text-[#8892b0] text-sm leading-relaxed">{institute.description}</p>
+                            <p className="text-[var(--kgu-muted)] text-sm leading-relaxed">{institute.description}</p>
                         </motion.div>
                     ))}
                 </StaggerContainer>
@@ -110,7 +110,7 @@ export function StructureSection({ institutes }: StructureSectionProps) {
                 {/* Historical note */}
                 <FadeIn delay={0.4}>
                     <div className="mt-10 glass-card rounded-xl p-5 max-w-2xl mx-auto border border-[rgba(200,168,75,0.15)]">
-                        <p className="text-[#8892b0] text-sm text-center leading-relaxed">
+                        <p className="text-[var(--kgu-muted)] text-sm text-center leading-relaxed">
                             <span className="text-[#c8a84b] font-semibold">Примечание: </span>
                             Старейший исторический факультет (основан в 1952 году) сегодня входит в состав
                             Гуманитарного института и продолжает традиции фундаментального образования.

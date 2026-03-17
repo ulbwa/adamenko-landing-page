@@ -44,7 +44,7 @@ function RectorCard({ rector, index }: { rector: Rector; index: number }) {
                         onError={() => setImgError(true)}
                     />
                 ) : (
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1a2744] to-[#0a1830] border-2 border-[rgba(200,168,75,0.3)] flex items-center justify-center group-hover:border-[rgba(200,168,75,0.6)] transition-colors">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[var(--kgu-blue)] to-[var(--kgu-navy-alt)] border-2 border-[rgba(200,168,75,0.3)] flex items-center justify-center group-hover:border-[rgba(200,168,75,0.6)] transition-colors">
                         <span className="text-[#c8a84b] font-bold text-lg font-[family-name:var(--font-playfair)]" aria-hidden="true">
                             {rector.name.split(" ")[0][0]}
                             {rector.name.split(" ")[1]?.[0]}
@@ -59,12 +59,12 @@ function RectorCard({ rector, index }: { rector: Rector; index: number }) {
                     aria-hidden="true"
                 />
             </div>
-            <p className="text-[#e8eaf6] font-semibold text-sm leading-tight mb-1 group-hover:text-[#c8a84b] transition-colors">
+            <p className="text-[var(--kgu-text)] font-semibold text-sm leading-tight mb-1 group-hover:text-[#c8a84b] transition-colors">
                 {rector.name}
             </p>
             <p className="text-[#c8a84b] text-xs font-medium mb-1">{rector.period}</p>
             {rector.note && (
-                <p className="text-[#8892b0] text-xs">{rector.note}</p>
+                <p className="text-[var(--kgu-muted)] text-xs">{rector.note}</p>
             )}
         </motion.div>
     );
@@ -78,12 +78,12 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
             aria-labelledby="people-heading"
         >
             {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0d1528] via-[#0a0e1a] to-[#0d1528]" aria-hidden="true" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[var(--kgu-deep)] via-[var(--kgu-navy)] to-[var(--kgu-deep)]" aria-hidden="true" />
 
             {/* Decorative orbs */}
             <div className="absolute top-20 left-[-10%] w-80 h-80 rounded-full bg-[#c8a84b]/5 blur-3xl pointer-events-none" aria-hidden="true" />
             <div className="absolute bottom-20 right-[-10%] w-96 h-96 rounded-full bg-[#c8a84b]/4 blur-3xl pointer-events-none" aria-hidden="true" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#1a2744]/20 blur-[120px] pointer-events-none" aria-hidden="true" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[var(--kgu-blue)]/20 blur-[120px] pointer-events-none" aria-hidden="true" />
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
@@ -94,12 +94,12 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
                         </span>
                         <h2
                             id="people-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e8eaf6] mb-4"
+                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--kgu-text)] mb-4"
                         >
                             Историю делают
                             <span className="gradient-text"> люди</span>
                         </h2>
-                        <p className="text-[#8892b0] text-lg max-w-xl mx-auto">
+                        <p className="text-[var(--kgu-muted)] text-lg max-w-xl mx-auto">
                             Руководители, выдающиеся выпускники и основатели научных школ КГУ
                         </p>
                     </div>
@@ -121,7 +121,7 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
                 <FadeIn delay={0.2}>
                     <div className="mb-20">
                         <SectionDivider label="Знаменитые выпускники" />
-                        <p className="text-center text-[#8892b0] text-sm mb-8 -mt-4">
+                        <p className="text-center text-[var(--kgu-muted)] text-sm mb-8 -mt-4">
                             Нажмите на карточку, чтобы узнать больше
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -146,7 +146,7 @@ export function PeopleSection({ rectors, alumni, scientists }: PeopleSectionProp
                                 className="glass-card rounded-xl p-6 text-center max-w-2xl mx-auto"
                             >
                                 <p className="text-[#c8a84b] font-semibold mb-2">{scientist.names}</p>
-                                <p className="text-[#8892b0] text-sm leading-relaxed">{scientist.description}</p>
+                                <p className="text-[var(--kgu-muted)] text-sm leading-relaxed">{scientist.description}</p>
                             </motion.div>
                         ))}
                     </div>

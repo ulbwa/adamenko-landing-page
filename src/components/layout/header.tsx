@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 const navLinks = [
     { label: "История", href: "#history" },
@@ -27,7 +28,7 @@ export function Header() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, ease: [0.25, 0.4, 0.25, 1] }}
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                    ? "bg-[#0a0e1a]/90 backdrop-blur-xl border-b border-[rgba(200,168,75,0.15)] shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
+                    ? "bg-[var(--kgu-navy)]/90 backdrop-blur-xl border-b border-[rgba(200,168,75,0.15)] shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
                     : "bg-transparent"
                 }`}
             role="banner"
@@ -46,8 +47,7 @@ export function Header() {
                     <img
                         src="/images/logo.svg"
                         alt="КГУ логотип"
-                        className="h-9 w-auto group-hover:opacity-80 transition-opacity duration-300"
-                        style={{ filter: "brightness(0) invert(1)" }}
+                        className="h-9 w-auto logo-img group-hover:opacity-80 transition-opacity duration-300"
                     />
                 </a>
 
@@ -57,7 +57,7 @@ export function Header() {
                         <li key={link.href}>
                             <a
                                 href={link.href}
-                                className="px-4 py-2 text-[#8892b0] hover:text-[#c8a84b] text-sm font-medium rounded-md hover:bg-[rgba(200,168,75,0.08)] transition-all duration-200"
+                                className="px-4 py-2 text-[var(--kgu-muted)] hover:text-[#c8a84b] text-sm font-medium rounded-md hover:bg-[rgba(200,168,75,0.08)] transition-all duration-200"
                             >
                                 {link.label}
                             </a>
@@ -65,18 +65,21 @@ export function Header() {
                     ))}
                 </ul>
 
-                {/* CTA Button desktop */}
-                <a
-                    href="#cta"
-                    className="hidden md:inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[#c8a84b] to-[#a8882b] text-[#0a0e1a] text-sm font-semibold rounded-lg hover:shadow-[0_0_20px_rgba(200,168,75,0.4)] transition-all duration-300 hover:scale-105 active:scale-95"
-                >
-                    Поступить
-                </a>
+                {/* Theme toggle + CTA Button desktop */}
+                <div className="hidden md:flex items-center gap-2">
+                    <ThemeToggle />
+                    <a
+                        href="#cta"
+                        className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[#c8a84b] to-[#a8882b] text-[#0a0e1a] text-sm font-semibold rounded-lg hover:shadow-[0_0_20px_rgba(200,168,75,0.4)] transition-all duration-300 hover:scale-105 active:scale-95"
+                    >
+                        Поступить
+                    </a>
+                </div>
 
                 {/* Mobile menu button */}
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
-                    className="md:hidden p-2 rounded-md text-[#8892b0] hover:text-[#c8a84b] hover:bg-[rgba(200,168,75,0.08)] transition-colors"
+                    className="md:hidden p-2 rounded-md text-[var(--kgu-muted)] hover:text-[#c8a84b] hover:bg-[rgba(200,168,75,0.08)] transition-colors"
                     aria-expanded={menuOpen}
                     aria-controls="mobile-menu"
                     aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
@@ -108,7 +111,7 @@ export function Header() {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="md:hidden bg-[#0d1528]/95 backdrop-blur-xl border-b border-[rgba(200,168,75,0.15)] overflow-hidden"
+                        className="md:hidden bg-[var(--kgu-deep)]/95 backdrop-blur-xl border-b border-[rgba(200,168,75,0.15)] overflow-hidden"
                     >
                         <ul className="px-4 py-3 space-y-1" role="list">
                             {navLinks.map((link) => (
@@ -116,12 +119,16 @@ export function Header() {
                                     <a
                                         href={link.href}
                                         onClick={() => setMenuOpen(false)}
-                                        className="block px-4 py-2.5 text-[#8892b0] hover:text-[#c8a84b] text-sm font-medium rounded-md hover:bg-[rgba(200,168,75,0.08)] transition-all"
+                                        className="block px-4 py-2.5 text-[var(--kgu-muted)] hover:text-[#c8a84b] text-sm font-medium rounded-md hover:bg-[rgba(200,168,75,0.08)] transition-all"
                                     >
                                         {link.label}
                                     </a>
                                 </li>
                             ))}
+                            <li className="flex items-center justify-between px-4 py-1.5">
+                                <span className="text-[var(--kgu-muted)] text-xs">Тема</span>
+                                <ThemeToggle />
+                            </li>
                             <li>
                                 <a
                                     href="#cta"

@@ -1,7 +1,7 @@
 export function Footer() {
     return (
         <footer
-            className="relative border-t border-[rgba(200,168,75,0.15)] bg-[#0a0e1a] py-10"
+            className="relative border-t border-[rgba(200,168,75,0.15)] bg-[var(--kgu-navy)] py-10"
             role="contentinfo"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,10 +11,10 @@ export function Footer() {
                             КГУ
                         </div>
                         <div>
-                            <p className="text-[#e8eaf6] font-semibold text-sm">
+                            <p className="text-[var(--kgu-text)] font-semibold text-sm">
                                 Курганский государственный университет
                             </p>
-                            <p className="text-[#8892b0] text-xs">Основан в 1951 году</p>
+                            <p className="text-[var(--kgu-muted)] text-xs">Основан в 1951 году</p>
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@ export function Footer() {
                                 <li key={link.href}>
                                     <a
                                         href={link.href}
-                                        className="text-[#8892b0] hover:text-[#c8a84b] text-xs transition-colors"
+                                        className="text-[var(--kgu-muted)] hover:text-[#c8a84b] text-xs transition-colors"
                                     >
                                         {link.label}
                                     </a>
@@ -39,7 +39,7 @@ export function Footer() {
                         </ul>
                     </nav>
 
-                    <p className="text-[#8892b0] text-xs text-center md:text-right">
+                    <p className="text-[var(--kgu-muted)] text-xs text-center md:text-right">
                         © {new Date().getFullYear()} КГУ
                         <br />
                         <span className="text-[rgba(200,168,75,0.6)]">Зауралье. Образование. Будущее.</span>

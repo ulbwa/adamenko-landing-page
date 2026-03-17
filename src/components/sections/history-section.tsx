@@ -18,7 +18,7 @@ export function HistorySection({ context, events }: HistorySectionProps) {
         >
             {/* Background decoration */}
             <div
-                className="absolute inset-0 bg-gradient-to-b from-[#0a0e1a] via-[#0d1528] to-[#0a0e1a]"
+                className="absolute inset-0 bg-gradient-to-b from-[var(--kgu-navy)] via-[var(--kgu-deep)] to-[var(--kgu-navy)]"
                 aria-hidden="true"
             />
             <div
@@ -34,13 +34,13 @@ export function HistorySection({ context, events }: HistorySectionProps) {
                         </span>
                         <h2
                             id="history-heading"
-                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[#e8eaf6] mb-6"
+                            className="font-[family-name:var(--font-playfair)] text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--kgu-text)] mb-6"
                         >
                             История высшего образования
                             <br />
                             <span className="gradient-text">в Курганской области</span>
                         </h2>
-                        <p className="text-[#8892b0] text-lg max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-[var(--kgu-muted)] text-lg max-w-2xl mx-auto leading-relaxed">
                             {context}
                         </p>
                     </div>
@@ -63,10 +63,10 @@ export function HistorySection({ context, events }: HistorySectionProps) {
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 className="text-[#e8eaf6] font-semibold text-lg mb-2 group-hover:text-[#c8a84b] transition-colors">
+                                    <h3 className="text-[var(--kgu-text)] font-semibold text-lg mb-2 group-hover:text-[#c8a84b] transition-colors">
                                         {event.year} год
                                     </h3>
-                                    <p className="text-[#8892b0] leading-relaxed">{event.description}</p>
+                                    <p className="text-[var(--kgu-muted)] leading-relaxed">{event.description}</p>
                                 </div>
                             </div>
                         </motion.div>

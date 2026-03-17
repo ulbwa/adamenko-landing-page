@@ -95,7 +95,7 @@ export function PersonCard({ person, index }: PersonCardProps) {
         aria-label={`Открыть профиль: ${person.name}`}
       >
         {/* Photo / avatar */}
-        <div className="relative h-56 overflow-hidden bg-[#0d1528]">
+        <div className="relative h-56 overflow-hidden bg-[var(--kgu-deep)]">
           {hasPhoto ? (
             <img
               src={person.photo}
@@ -107,7 +107,7 @@ export function PersonCard({ person, index }: PersonCardProps) {
             <AvatarSvg name={person.name} />
           )}
           {/* Bottom gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0d1528] via-[rgba(13,21,40,0.25)] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--kgu-deep)] via-[var(--kgu-deep-mid)] to-transparent" />
 
           {/* Tags layered on photo */}
           {person.tags && person.tags.length > 0 && (
@@ -126,13 +126,13 @@ export function PersonCard({ person, index }: PersonCardProps) {
 
         {/* Text content */}
         <div className="p-5">
-          <h3 className="text-[#e8eaf6] font-bold text-base leading-snug mb-1 group-hover:text-[#c8a84b] transition-colors font-[family-name:var(--font-playfair)]">
+          <h3 className="text-[var(--kgu-text)] font-bold text-base leading-snug mb-1 group-hover:text-[#c8a84b] transition-colors font-[family-name:var(--font-playfair)]">
             {person.name}
           </h3>
           <p className="text-[#c8a84b] text-xs font-semibold mb-2.5">
             {person.graduation}
           </p>
-          <p className="text-[#8892b0] text-xs leading-relaxed line-clamp-2">
+          <p className="text-[var(--kgu-muted)] text-xs leading-relaxed line-clamp-2">
             {person.achievement}
           </p>
 
@@ -175,10 +175,10 @@ export function PersonCard({ person, index }: PersonCardProps) {
               exit={{ scale: 0.9, opacity: 0, y: 18 }}
               transition={{ duration: 0.38, ease }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-[#0d1528] border border-[rgba(200,168,75,0.22)] rounded-3xl max-w-md w-full overflow-hidden shadow-[0_0_80px_rgba(200,168,75,0.18)]"
+              className="bg-[var(--kgu-deep)] border border-[rgba(200,168,75,0.22)] rounded-3xl max-w-md w-full overflow-hidden shadow-[0_0_80px_rgba(200,168,75,0.18)]"
             >
               {/* Modal photo */}
-              <div className="relative h-64 bg-[#0d1528] overflow-hidden">
+              <div className="relative h-64 bg-[var(--kgu-deep)] overflow-hidden">
                 {hasPhoto ? (
                   <img
                     src={person.photo}
@@ -189,13 +189,13 @@ export function PersonCard({ person, index }: PersonCardProps) {
                 ) : (
                   <AvatarSvg name={person.name} />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1528] via-[rgba(13,21,40,0.2)] to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--kgu-deep)] via-[var(--kgu-deep-mid)] to-transparent" />
 
                 {/* Close */}
                 <button
                   onClick={close}
                   data-hover
-                  className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/55 backdrop-blur-sm flex items-center justify-center text-[#8892b0] hover:text-white hover:bg-black/75 transition-colors"
+                  className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/55 backdrop-blur-sm flex items-center justify-center text-[var(--kgu-muted)] hover:text-white hover:bg-black/75 transition-colors"
                   aria-label="Закрыть"
                 >
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
@@ -225,13 +225,13 @@ export function PersonCard({ person, index }: PersonCardProps) {
                   </div>
                 )}
 
-                <h2 className="text-[#e8eaf6] font-bold text-xl font-[family-name:var(--font-playfair)] mb-0.5">
+                <h2 className="text-[var(--kgu-text)] font-bold text-xl font-[family-name:var(--font-playfair)] mb-0.5">
                   {person.name}
                 </h2>
                 <p className="text-[#c8a84b] text-sm font-semibold mb-4">
                   {person.graduation}
                 </p>
-                <p className="text-[#8892b0] text-sm leading-relaxed mb-5">
+                <p className="text-[var(--kgu-muted)] text-sm leading-relaxed mb-5">
                   {person.bioExtended ?? person.achievement}
                 </p>
 
