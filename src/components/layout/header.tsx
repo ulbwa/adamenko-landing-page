@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
@@ -16,6 +16,30 @@ const navLinks = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigateToSection = (href: string) => {
+    if (href === "#") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const target = document.querySelector<HTMLElement>(href);
+    if (!target) return;
+
+    const headerOffset = window.innerWidth >= 640 ? 112 : 96;
+    const top = window.scrollY + target.getBoundingClientRect().top - headerOffset;
+    window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+    window.history.replaceState(null, "", href);
+  };
+
+  const handleNavClick = (href: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    setMenuOpen(false);
+    document.body.style.overflow = "";
+    requestAnimationFrame(() => {
+      navigateToSection(href);
+    });
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -47,7 +71,7 @@ export function Header() {
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between"
         aria-label="Главная навигация"
       >
-        <a href="#" className="group flex-shrink-0" aria-label="КГУ — на главную">
+        <a href="#" onClick={handleNavClick("#")} className="group flex-shrink-0" aria-label="КГУ — на главную">
           <Image
             src="/images/logo.svg"
             alt="Логотип КГУ"
@@ -63,6 +87,7 @@ export function Header() {
             <li key={link.href}>
               <a
                 href={link.href}
+                onClick={handleNavClick(link.href)}
                 className="px-3 lg:px-4 py-2 text-[var(--text-secondary)] hover:text-[var(--gold)] text-sm font-medium rounded-lg hover:bg-[var(--gold-glow)] transition-all duration-200"
               >
                 {link.label}
@@ -74,6 +99,7 @@ export function Header() {
         <div className="hidden md:flex items-center">
           <a
             href="#cta"
+            onClick={handleNavClick("#cta")}
             className="inline-flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-[var(--gold)] to-[var(--gold-light)] text-[var(--navy)] text-sm font-semibold rounded-lg hover:shadow-[0_0_24px_var(--gold-glow)] transition-all duration-300 hover:scale-105 active:scale-95"
           >
             Поступить
@@ -104,7 +130,7 @@ export function Header() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={handleNavClick(link.href)}
                     className="block px-4 py-3 text-[var(--text-secondary)] hover:text-[var(--gold)] text-sm font-medium rounded-lg hover:bg-[var(--gold-glow)] transition-all"
                   >
                     {link.label}
@@ -114,7 +140,7 @@ export function Header() {
               <li>
                 <a
                   href="#cta"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={handleNavClick("#cta")}
                   className="block px-4 py-3 bg-gradient-to-r from-[var(--gold)] to-[var(--gold-light)] text-[var(--navy)] text-sm font-semibold rounded-lg text-center mt-2"
                 >
                   Поступить
