@@ -73,7 +73,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-                    className="font-[family-name:var(--font-playfair)] text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-[var(--kgu-text)] leading-[1.0] tracking-tight mb-8"
+                    className="font-[family-name:var(--font-playfair)] text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-[var(--kgu-text)] leading-[1.05] tracking-tight mb-8"
                 >
                     Курганский
                     <br />
@@ -87,7 +87,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.7 }}
-                    className="text-[var(--kgu-muted)] text-xl sm:text-2xl max-w-2xl mx-auto leading-relaxed mb-6"
+                    className="text-[var(--kgu-muted)] text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-6"
                 >
                     {content.subtitle}
                 </motion.p>
@@ -97,7 +97,7 @@ export function HeroSection({ content }: HeroSectionProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.9 }}
-                    className="text-[var(--kgu-text-dim)] text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed mb-14"
+                    className="text-[var(--kgu-text-dim)] text-base sm:text-lg max-w-3xl mx-auto leading-relaxed mb-14"
                 >
                     {content.body}
                 </motion.p>
