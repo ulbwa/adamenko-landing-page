@@ -22,6 +22,7 @@
   --kgu-deep-alt: #0d1f3c;
   --kgu-navy-alt: #0a1830;
   --kgu-deep-mid: rgba(13, 21, 40, 0.25);
+  --kgu-header: #0a0e1a;
 }
 
 [data-theme="light"] {
@@ -42,6 +43,7 @@
   --kgu-deep-alt: #dde6f8;
   --kgu-navy-alt: #e4ecff;
   --kgu-deep-mid: rgba(234, 239, 251, 0.25);
+  --kgu-header: #1a2744;
 }
 
 @theme inline {
