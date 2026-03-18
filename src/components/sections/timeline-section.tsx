@@ -49,7 +49,7 @@ function DesktopTimelineItem({ item, isRight }: { item: TimelineItem; index: num
       <button
         onClick={() => ref.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
         aria-label={`Перейти к событию: ${item.title}`}
-        className="absolute left-[7px] md:left-1/2 top-6 -translate-x-1/2 z-10 cursor-pointer p-3 -m-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--gold)] focus-visible:outline-offset-2 rounded-full"
+        className="absolute left-[7px] md:left-1/2 top-6 -translate-x-1/2 z-10 cursor-pointer p-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--gold)] focus-visible:outline-offset-2 rounded-full"
       >
         <div className="relative isolate w-3.5 h-3.5 md:w-4 md:h-4">
           <motion.div
