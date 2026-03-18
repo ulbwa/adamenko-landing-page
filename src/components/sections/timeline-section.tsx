@@ -51,19 +51,21 @@ function DesktopTimelineItem({ item, isRight }: { item: TimelineItem; index: num
         aria-label={`Перейти к событию: ${item.title}`}
         className="absolute left-[7px] md:left-1/2 top-6 -translate-x-1/2 z-10 cursor-pointer p-3 -m-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--gold)] focus-visible:outline-offset-2 rounded-full"
       >
-        <motion.div
-          animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0, 0.5] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-0 rounded-full bg-[var(--gold)] -z-10"
-        />
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={isInView ? { scale: 1 } : { scale: 0 }}
-          whileHover={{ scale: 1.4 }}
-          whileTap={{ scale: 1.2 }}
-          transition={{ duration: 0.4, delay: 0.2, type: "spring", stiffness: 300 }}
-          className="w-3.5 h-3.5 md:w-4 md:h-4 rounded-full bg-gradient-to-br from-[var(--gold)] to-[var(--gold-light)] shadow-[0_0_16px_var(--gold-glow)]"
-        />
+        <div className="relative isolate w-3.5 h-3.5 md:w-4 md:h-4">
+          <motion.div
+            animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0, 0.5] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-0 rounded-full bg-[var(--gold)] -z-10"
+          />
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={isInView ? { scale: 1 } : { scale: 0 }}
+            whileHover={{ scale: 1.4 }}
+            whileTap={{ scale: 1.2 }}
+            transition={{ duration: 0.4, delay: 0.2, type: "spring", stiffness: 300 }}
+            className="w-3.5 h-3.5 md:w-4 md:h-4 rounded-full bg-gradient-to-br from-[var(--gold)] to-[var(--gold-light)] shadow-[0_0_16px_var(--gold-glow)]"
+          />
+        </div>
       </button>
 
       <div className="hidden md:block w-[calc(50%-2rem)]" aria-hidden="true" />
